@@ -751,6 +751,443 @@ button.main{background:var(--main)}
   }
 }
 
+
+.prizeTools{
+  margin:10px 0 14px;
+  padding:12px;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+}
+.prizeAddRow{
+  display:grid;
+  grid-template-columns:120px 1fr auto;
+  gap:8px;
+  align-items:center;
+}
+.prizePills{
+  margin-top:8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.prizePill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:#fff;
+  border:1px solid #d7dde6;
+  border-radius:999px;
+  padding:6px 8px 6px 10px;
+  font-size:12px;
+  font-weight:900;
+}
+.prizePill button{
+  min-width:auto;
+  min-height:0;
+  padding:2px 7px;
+  border-radius:999px;
+  background:#eef2f7;
+  color:#475569;
+  font-size:12px;
+  line-height:1.2;
+}
+.prizePill button:hover{
+  background:#e2e8f0;
+}
+@media(max-width:720px){
+  .prizeAddRow{
+    grid-template-columns:1fr;
+  }
+  .prizeTools{
+    margin-top:12px;
+  }
+}
+
+
+@media(max-width:720px){
+  .collageControlRow #resetCollageBtn{
+    font-size:12px !important;
+  }
+}
+
+
+.prizeGroup{
+  width:100%;
+  margin-top:8px;
+}
+.prizeGroupTitle{
+  font-size:12px;
+  font-weight:900;
+  color:var(--muted);
+  margin:8px 0 5px;
+}
+.prizePill.defaultPrize{
+  background:#fffdf8;
+  border-color:#eadfc7;
+}
+
+
+/* v30 prize list collapsed by default */
+.prizeTools{
+  margin:10px 0 14px;
+  padding:0;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+  overflow:hidden;
+}
+.prizeTools summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:11px 13px;
+  font-weight:900;
+  color:var(--ink);
+  user-select:none;
+}
+.prizeTools summary::-webkit-details-marker{
+  display:none;
+}
+.prizeTools summary::after{
+  content:"開く";
+  flex:0 0 auto;
+  background:#fff;
+  border:1px solid #d7dde6;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:12px;
+  color:var(--muted);
+}
+.prizeTools[open] summary::after{
+  content:"閉じる";
+}
+.prizeTools summary small{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+}
+.prizeToolsInner{
+  padding:0 12px 12px;
+  border-top:1px solid #e5e7eb;
+}
+@media(max-width:720px){
+  .prizeTools{
+    margin:8px 0 12px;
+  }
+  .prizeTools summary{
+    padding:10px 11px;
+  }
+  .prizeTools summary small{
+    display:none;
+  }
+}
+
+
+/* v31 SP badge layout */
+.badgeStack{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:4px;
+  margin-left:auto;
+}
+.badgeStack .collageItemBadge{
+  min-width:38px;
+  height:24px;
+  padding:0 9px;
+  font-size:12px;
+  line-height:1;
+}
+.badgeStack .spChip{
+  min-width:30px;
+  height:22px;
+  padding:0 7px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#7c3aed;
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  line-height:1;
+  box-shadow:none;
+}
+.collageItemMeta{
+  align-items:center;
+}
+.collageItemMeta > .collageItemMember{
+  min-width:0;
+  flex:1 1 auto;
+  margin-bottom:0;
+}
+.memberLabelWrap{
+  display:contents;
+}
+@media(max-width:720px){
+  .badgeStack{
+    gap:3px;
+  }
+  .badgeStack .collageItemBadge{
+    min-width:34px;
+    height:23px;
+    padding:0 8px;
+    font-size:11px;
+  }
+  .badgeStack .spChip{
+    min-width:28px;
+    height:21px;
+    padding:0 6px;
+    font-size:10px;
+  }
+}
+
+
+/* v32: keep member name on one line */
+.collageItemMeta{
+  display:grid !important;
+  grid-template-columns:minmax(0, 1fr) auto;
+  align-items:center;
+  gap:6px;
+}
+.collageItemMeta > .collageItemMember{
+  min-width:0;
+  white-space:nowrap !important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-bottom:0 !important;
+  line-height:1.15;
+}
+.badgeStack{
+  min-width:max-content;
+  gap:3px;
+}
+.badgeStack .collageItemBadge{
+  min-width:34px;
+  height:23px;
+  padding:0 8px;
+  font-size:11px;
+}
+.badgeStack .spChip{
+  min-width:27px;
+  height:21px;
+  padding:0 6px;
+  font-size:10px;
+}
+@media(max-width:720px){
+  .collageItemMeta{
+    gap:4px;
+  }
+  .badgeStack .collageItemBadge{
+    min-width:32px;
+    height:22px;
+    padding:0 7px;
+    font-size:10px;
+  }
+  .badgeStack .spChip{
+    min-width:25px;
+    height:20px;
+    padding:0 5px;
+    font-size:9px;
+  }
+}
+
+
+/* v33 subtle bulk member editor */
+.bulkMemberTools{
+  margin:8px 0 12px;
+  padding:0;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+  overflow:hidden;
+}
+.bulkMemberTools summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 13px;
+  font-weight:900;
+  color:var(--ink);
+  user-select:none;
+}
+.bulkMemberTools summary::-webkit-details-marker{
+  display:none;
+}
+.bulkMemberTools summary::after{
+  content:"開く";
+  flex:0 0 auto;
+  background:#fff;
+  border:1px solid #d7dde6;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:12px;
+  color:var(--muted);
+}
+.bulkMemberTools[open] summary::after{
+  content:"閉じる";
+}
+.bulkMemberTools summary small{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+}
+.bulkMemberInner{
+  padding:0 12px 12px;
+  border-top:1px solid #e5e7eb;
+}
+.bulkMemberRow{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:8px;
+  align-items:center;
+  margin-top:10px;
+}
+@media(max-width:720px){
+  .bulkMemberTools{
+    margin:8px 0 12px;
+  }
+  .bulkMemberTools summary{
+    padding:10px 11px;
+  }
+  .bulkMemberTools summary small{
+    display:none;
+  }
+  .bulkMemberRow{
+    grid-template-columns:1fr 1fr;
+  }
+  .bulkMemberRow select{
+    grid-column:1 / -1;
+  }
+}
+
+
+/* v35 bulk edit panel */
+.bulkEditPanel{
+  margin:10px 0 14px;
+  padding:12px;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+}
+.bulkEditHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.bulkEditRow{
+  display:grid;
+  grid-template-columns:auto auto;
+  gap:8px;
+  margin-top:8px;
+  align-items:center;
+}
+.bulkEditRow:nth-of-type(3){
+  grid-template-columns:180px minmax(0,1fr) auto;
+}
+.editorPickLabel{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:900;
+  color:var(--muted);
+}
+.editorPickLabel input{
+  width:16px;
+  height:16px;
+}
+@media(max-width:720px){
+  .bulkEditPanel{
+    padding:10px;
+  }
+  .bulkEditHead{
+    align-items:flex-start;
+    flex-direction:column;
+    margin-bottom:6px;
+  }
+  .bulkEditRow{
+    grid-template-columns:1fr 1fr;
+  }
+  .bulkEditRow:nth-of-type(3){
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* v36 bulk prize custom input */
+.bulkEditRow.withCustomPrize{
+  grid-template-columns:140px minmax(0,1fr) minmax(0,1fr) auto;
+}
+@media(max-width:720px){
+  .bulkEditRow.withCustomPrize{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* v37 reordered sections + collapsed bulk edit */
+.bulkEditTools{
+  padding:0 !important;
+  overflow:hidden;
+}
+.bulkEditTools summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 13px;
+  font-weight:900;
+  color:var(--ink);
+  user-select:none;
+}
+.bulkEditTools summary::-webkit-details-marker{
+  display:none;
+}
+.bulkEditTools summary::after{
+  content:"開く";
+  flex:0 0 auto;
+  background:#fff;
+  border:1px solid #d7dde6;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:12px;
+  color:var(--muted);
+}
+.bulkEditTools[open] summary::after{
+  content:"閉じる";
+}
+.bulkEditTools #bulkSelectedCount{
+  margin-left:auto;
+}
+.bulkEditInner{
+  padding:0 12px 12px;
+  border-top:1px solid #e5e7eb;
+}
+.bulkEditInner .bulkEditRow:first-child{
+  margin-top:10px;
+}
+@media(max-width:720px){
+  .bulkEditTools summary{
+    padding:10px 11px;
+  }
+  .bulkEditTools #bulkSelectedCount{
+    margin-left:0;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -762,7 +1199,7 @@ button.main{background:var(--main)}
 
   <section class="panel">
     <h2>コラージュ作成</h2>
-    <p class="small">画像を複数枚まとめて追加できます。メンバー辞書は最初は未選択で、グループを選ぶと候補が表示されます。レアリティ・メンバー名・商品名・SP版を設定し、メンバー序列/レアリティ/商品名でソートできます。</p>
+    <p class="small">上から順に設定して使いやすいように並べ替えました。ソートは初期状態で「レアリティ ＞ 商品名 ＞ メンバー序列」になっているので、必要な時に「ソート適用」を押すだけです。</p>
 
     <div class="collageTopRow">
       <div>
@@ -805,6 +1242,7 @@ button.main{background:var(--main)}
           <option value="rosy">ロージークロニクル</option>
         </select>
         <label class="checkLabel"><input id="includeOgCheck" type="checkbox"> OGも含める（2023年時点で在籍メンバー）</label>
+        <label class="checkLabel"><input id="includeMlineSeniorCheck" type="checkbox"> M-line上位OGも表示</label>
       </div>
       <div>
         <label>テーマ色</label>
@@ -842,13 +1280,14 @@ button.main{background:var(--main)}
       <button id="addCollageFilesBtn" class="good">画像を一括追加</button>
       <span class="small" id="fileAddHint">ボタンを押して画像を選択</span>
       <button id="clearCollageBtn" class="danger">全部削除</button>
+      <button id="resetCollageBtn" class="secondary" type="button">初期状態に戻す</button>
       <button id="saveCollagePngBtn" class="main">PNG保存</button>
       <button id="shareCollagePngBtn" class="secondary">iPhoneで保存/共有</button>
       <select id="sortSelect">
         <option value="manual">手動順</option>
         <option value="member_rarity">メンバー序列 ＞ レアリティ</option>
         <option value="rarity_member">レアリティ ＞ メンバー序列</option>
-        <option value="rarity_item_member">レアリティ ＞ 商品名 ＞ メンバー序列</option>
+        <option value="rarity_item_member" selected>レアリティ ＞ 商品名 ＞ メンバー序列</option>
         <option value="item_rarity_member">商品名 ＞ レアリティ ＞ メンバー序列</option>
       </select>
       <button id="applySortBtn" class="secondary">ソート適用</button>
@@ -870,8 +1309,92 @@ button.main{background:var(--main)}
         </div>
       </div>
       <textarea id="tradeTextOutput" readonly></textarea>
-      <p class="small">同じ商品名・レアリティごとにまとめて、メンバー名を見やすく並べます。フルネーム/苗字のみを切り替えでき、SP版も名前に自動反映します。</p>
+      <p class="small">同じ景品名・レアリティごとにまとめて、メンバー名を見やすく並べます。フルネーム/苗字のみを切り替えでき、SP版も名前に自動反映します。</p>
     </div>
+
+    <details class="bulkMemberTools" id="bulkMemberDetails">
+      <summary>
+        <span>メンバー名一括変更</span>
+        <small>特定メンバー用</small>
+      </summary>
+      <div class="bulkMemberInner">
+        <div class="bulkMemberRow">
+          <select id="bulkMemberSelect"></select>
+          <button id="applyBulkMemberAllBtn" class="secondary" type="button">全て変更</button>
+          <button id="applyBulkMemberBlankBtn" class="secondary" type="button">未設定だけ</button>
+        </div>
+        <p class="small">特定メンバーだけのモバガチャ用です。SP版チェックや景品名はそのまま残します。</p>
+      </div>
+    </details>
+
+    <details id="bulkEditPanel" class="bulkEditPanel bulkEditTools">
+      <summary>
+        <span>選択した画像をまとめて変更</span>
+        <span class="small" id="bulkSelectedCount">0件選択中</span>
+      </summary>
+      <div class="bulkEditInner">
+<div class="bulkEditRow">
+        <button id="selectAllItemsBtn" class="secondary" type="button">全部選択</button>
+        <button id="clearSelectedItemsBtn" class="secondary" type="button">選択解除</button>
+      </div>
+      <div class="bulkEditRow">
+        <select id="bulkRankSelect">
+          <option value="">一括レアリティ変更</option>
+          <option value="SR">SR</option>
+          <option value="R">R</option>
+          <option value="N">N</option>
+          <option value="その他">その他</option>
+        </select>
+        <button id="applyBulkRankBtn" class="secondary" type="button">選択中に適用</button>
+      </div>
+      <div class="bulkEditRow">
+        <select id="bulkPrizeRankSelect">
+          <option value="">景品用レアリティを選択</option>
+          <option value="SR">SR</option>
+          <option value="R">R</option>
+          <option value="N">N</option>
+          <option value="その他">その他</option>
+        </select>
+        <select id="bulkPrizeSelect">
+          <option value="">景品名を選択</option>
+        </select>
+        <input id="bulkPrizeCustomInput" class="hidden" placeholder="追加する景品名を入力">
+        <button id="applyBulkPrizeBtn" class="secondary" type="button">選択中に適用</button>
+      </div>
+      <p class="small">画像登録直後はレアリティ未設定です。チェックを入れた画像だけ、レアリティや景品名をまとめて変更できます。変更後はチェックが自動で外れます。</p>
+      </div>
+    </details>
+
+    <details class="prizeTools" id="prizeToolsDetails">
+      <summary>
+        <span>景品名リスト・追加</span>
+        <small>必要な時だけ開く</small>
+      </summary>
+      <div class="prizeToolsInner">
+        <div class="prizeAddRow">
+          <select id="prizeRankSelect">
+            <option value="SR">SR景品</option>
+            <option value="R">R景品</option>
+            <option value="N">N景品</option>
+            <option value="その他">その他</option>
+          </select>
+          <input id="prizeNameInput" placeholder="例: アクキー2 / BIGアクスタ別ver.">
+          <button id="addPrizeNameBtn" class="secondary" type="button">景品名を登録</button>
+        </div>
+        <div id="prizePills" class="prizePills"></div>
+        <p class="small">登録した景品名は、各画像の「景品名」から選べます。直接入力した景品名も自動でリストに追加されます。</p>
+      </div>
+    </details>
+
+    
+
+    
+
+    
+
+    
+
+    
 
     <div id="collageEditorGrid" class="collageEditorGrid"></div>
 
@@ -917,13 +1440,17 @@ const ogDictionaries = {
 };
 ogDictionaries.all = Object.values(ogDictionaries).flat();
 
-const mlineMembers = [
+const mlineSeniorMembers = [
+  // 通常のモバガチャでは出る確率が低めなので、必要な時だけ表示
   "中澤裕子","飯田圭織","保田圭","矢口真里","石川梨華","辻󠄀希美",
-  "高橋愛","田中れいな","須藤茉麻","熊井友理奈","矢島舞美","中島早貴",
+  "高橋愛","田中れいな","須藤茉麻","熊井友理奈","矢島舞美","中島早貴"
+];
+const mlineMembers = [
   "鈴木愛理","譜久村聖","竹内朱莉","勝田里奈","飯窪春菜","石田亜佑美",
   "佐藤優樹","宮崎由加","宮本佳林","植村あかり","佐々木莉佳子",
   "稲場愛香","森戸知沙希","小関舞","山岸理子","浅倉樹々"
 ];
+const allMlineMembers = [...mlineSeniorMembers, ...mlineMembers];
 
 const dictionaries = {
   ...baseDictionaries,
@@ -993,7 +1520,51 @@ try {
 }
 let currentDict = localStorage.getItem("collageOnlyDict_v2") || "";
 let includeOg = localStorage.getItem("collageOnlyIncludeOg_v1") === "true";
+let includeMlineSenior = localStorage.getItem("collageOnlyIncludeMlineSenior_v1") === "true";
 let headerImageData = localStorage.getItem("collageOnlyHeaderImage_v1") || "";
+
+const defaultPrizeNamesByRank = {
+  SR:[
+    "BIGアクリルスタンド",
+    "タオル(フェイスorマイクロファイバー)",
+    "うちわ",
+    "マルチスタンド(スマホスタンド)",
+    "メモリアルパネル(アクリルパネル)",
+    "BIGクッションキーホルダー",
+    "ゆらゆらアクリルスタンド"
+  ],
+  R:[
+    "アクリルキーホルダー",
+    "ネームキーホルダー",
+    "マルチバンド",
+    "キーチャーム",
+    "ポーチ",
+    "カラビナ"
+  ],
+  N:[
+    "缶バッジ",
+    "ステッカー",
+    "トレカ"
+  ]
+};
+const defaultPrizeNames = [...new Set(Object.values(defaultPrizeNamesByRank).flat())];
+
+let prizeNames = [];
+let prizeRankMap = {};
+try{
+  const savedPrizeNames = JSON.parse(localStorage.getItem("collagePrizeNames_v1") || "[]");
+  prizeRankMap = JSON.parse(localStorage.getItem("collagePrizeRankMap_v1") || "{}") || {};
+  prizeNames = [...new Set([...defaultPrizeNames, ...savedPrizeNames.map(x=>String(x||"").trim()).filter(Boolean)])];
+}catch(e){
+  prizeNames = [...defaultPrizeNames];
+  prizeRankMap = {};
+  for(const [rank, names] of Object.entries(defaultPrizeNamesByRank)){
+    names.forEach(name=>prizeRankMap[name] = rank);
+  }
+}
+for(const [rank, names] of Object.entries(defaultPrizeNamesByRank)){
+  names.forEach(name=>prizeRankMap[name] = rank);
+}
 
 function $(id){ return document.getElementById(id); }
 function uid(){return "id_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,8);}
@@ -1002,10 +1573,25 @@ function normalizeName(name){const n=(name||"").trim(); return aliases[n]||n;}
 function uniqueList(list){return [...new Set(list.filter(Boolean))];}
 function currentMembers(){
   if(!currentDict) return [];
+
+  let members = [];
   if(includeOg && fullOrderDictionaries[currentDict]){
-    return uniqueList(fullOrderDictionaries[currentDict]);
+    members = [...fullOrderDictionaries[currentDict]];
+  }else{
+    members = [...(dictionaries[currentDict] || [])];
   }
-  return uniqueList(dictionaries[currentDict] || []);
+
+  // M-line選択時だけ、必要に応じて中澤裕子〜中島早貴を先頭側に追加
+  if(includeMlineSenior){
+    if(currentDict === "mline"){
+      members = [...mlineSeniorMembers, ...members];
+    }else if(currentDict === "all_mline"){
+      const hpMembers = includeOg && fullOrderDictionaries.all ? fullOrderDictionaries.all : (dictionaries.all || []);
+      members = [...hpMembers, ...mlineSeniorMembers, ...mlineMembers];
+    }
+  }
+
+  return uniqueList(members);
 }
 function fileToDataURL(file){
   return new Promise((resolve,reject)=>{
@@ -1034,12 +1620,16 @@ function saveState(){
     localStorage.setItem("collageOnlyTitle_v1", $("collageTitleInput").value || "");
     localStorage.setItem("collageOnlySub_v1", $("collageSubInput").value || "");
     localStorage.setItem("collageOnlyDict_v2", currentDict);
-    localStorage.setItem("collageOnlyIncludeOg_v1", includeOg ? "true" : "false");
+    localStorage.setItem("collageOnlyIncludeOg_v1",
+    "collageOnlyIncludeMlineSenior_v1", includeOg ? "true" : "false");
+    localStorage.setItem("collageOnlyIncludeMlineSenior_v1", includeMlineSenior ? "true" : "false");
     localStorage.setItem("collageOnlyTheme_v1", $("themeSelect").value);
     localStorage.setItem("collageOnlyColumns_v1", $("columnsSelect").value);
     const fitEl = $("imageFitSelect");
     if(fitEl) localStorage.setItem("collageOnlyImageFit_v1", fitEl.value);
     localStorage.setItem("collageOnlySort_v1", $("sortSelect").value);
+    localStorage.setItem("collagePrizeNames_v1", JSON.stringify(prizeNames));
+    localStorage.setItem("collagePrizeRankMap_v1", JSON.stringify(prizeRankMap));
     try{
       if(headerImageData){
         localStorage.setItem("collageOnlyHeaderImage_v1", headerImageData);
@@ -1057,7 +1647,7 @@ function loadState(){
   $("themeSelect").value = localStorage.getItem("collageOnlyTheme_v1") || "#d71920";
   $("columnsSelect").value = localStorage.getItem("collageOnlyColumns_v1") || "4";
   if($("imageFitSelect")) $("imageFitSelect").value = localStorage.getItem("collageOnlyImageFit_v1") || "contain";
-  $("sortSelect").value = localStorage.getItem("collageOnlySort_v1") || "manual";
+  $("sortSelect").value = localStorage.getItem("collageOnlySort_v1") || "rarity_item_member";
   if([...$("dictionarySelect").options].some(opt=>opt.value === currentDict)){
     $("dictionarySelect").value = currentDict;
   }else{
@@ -1065,6 +1655,7 @@ function loadState(){
     $("dictionarySelect").value = "";
   }
   $("includeOgCheck").checked = includeOg;
+  if($("includeMlineSeniorCheck")) $("includeMlineSeniorCheck").checked = includeMlineSenior;
 }
 function updateDictionaryUI(){
   const members = currentMembers();
@@ -1082,6 +1673,285 @@ function memberOptions(selected){
   opts += members.map(m=>`<option ${safeSelected===m?"selected":""}>${esc(m)}</option>`).join("");
   opts += `<option value="__custom__">直接入力...</option>`;
   return opts;
+}
+
+
+function bulkMemberOptions(){
+  const members = currentMembers();
+  let opts = `<option value="">変更するメンバーを選択</option>`;
+  opts += members.map(m=>`<option>${esc(m)}</option>`).join("");
+  opts += `<option value="__custom__">直接入力...</option>`;
+  return opts;
+}
+function updateBulkMemberUI(){
+  const sel = $("bulkMemberSelect");
+  if(!sel) return;
+  const current = sel.value || "";
+  sel.innerHTML = bulkMemberOptions();
+  if(current && [...sel.options].some(opt=>opt.value === current)){
+    sel.value = current;
+  }
+}
+function resolveBulkMemberName(){
+  const sel = $("bulkMemberSelect");
+  if(!sel) return "";
+  if(sel.value === "__custom__"){
+    const custom = prompt("一括設定するメンバー名を入力してください", "");
+    if(custom === null) return "";
+    return normalizeName(custom.trim());
+  }
+  return normalizeName(sel.value || "");
+}
+function applyBulkMember(onlyBlank){
+  const name = resolveBulkMemberName();
+  if(!name){
+    alert("メンバー名を選択してください。");
+    return;
+  }
+  if(!collageItems.length){
+    alert("まだ画像が登録されていません。");
+    return;
+  }
+
+  let changed = 0;
+  for(const item of collageItems){
+    if(!onlyBlank || !item.member){
+      item.member = name;
+      changed++;
+    }
+  }
+
+  if(!changed){
+    alert("変更対象がありませんでした。");
+    return;
+  }
+
+  saveState();
+  render();
+  if($("bulkMemberDetails")) $("bulkMemberDetails").open = false;
+}
+function normalizePrizeName(name){
+  return String(name || "").trim();
+}
+function isDefaultPrizeName(name){
+  return defaultPrizeNames.includes(normalizePrizeName(name));
+}
+function prizeRankOf(name){
+  const value = normalizePrizeName(name);
+  if(!value) return "";
+  if(prizeRankMap[value]) return prizeRankMap[value];
+  for(const [rank, names] of Object.entries(defaultPrizeNamesByRank)){
+    if(names.includes(value)) return rank;
+  }
+  return "";
+}
+function ensurePrizeName(name, rank){
+  const value = normalizePrizeName(name);
+  if(!value) return "";
+  if(!prizeNames.includes(value)){
+    prizeNames.push(value);
+  }
+  if(!isDefaultPrizeName(value)){
+    // rankが明示された時だけ上書きする。
+    // JSON読込時などrank未指定で呼ばれた時に、画面の初期値(SR)で勝手に上書きしないため。
+    if(rank){
+      prizeRankMap[value] = rank;
+    }else if(!prizeRankMap[value]){
+      prizeRankMap[value] = "その他";
+    }
+  }
+  return value;
+}
+function removePrizeName(name){
+  const value = normalizePrizeName(name);
+  if(isDefaultPrizeName(value)){
+    alert("定番景品は削除できません。");
+    return;
+  }
+  prizeNames = prizeNames.filter(x=>x !== value);
+  delete prizeRankMap[value];
+  saveState();
+  if($("prizeToolsDetails")) $("prizeToolsDetails").open = true;
+  render();
+}
+function rankLabel(rank){
+  return rank || "その他";
+}
+function updatePrizeUI(){
+  const box = $("prizePills");
+  if(!box) return;
+
+  const ranks = ["SR","R","N","その他"];
+  box.innerHTML = ranks.map(rank=>{
+    const defaultNames = defaultPrizeNamesByRank[rank] || [];
+    const customNames = prizeNames.filter(name=>!isDefaultPrizeName(name) && prizeRankOf(name) === rank);
+    if(!defaultNames.length && !customNames.length) return "";
+    return `
+      <div class="prizeGroup">
+        <div class="prizeGroupTitle">${esc(rankLabel(rank))} 景品</div>
+        ${defaultNames.map(name=>`<span class="prizePill defaultPrize">${esc(name)}</span>`).join("")}
+        ${customNames.map(name=>`
+          <span class="prizePill">${esc(name)}<button type="button" data-prize-remove="${esc(name)}">×</button></span>
+        `).join("")}
+      </div>
+    `;
+  }).join("") || `<span class="small">まだ景品名が登録されていません。</span>`;
+
+  document.querySelectorAll("[data-prize-remove]").forEach(btn=>btn.onclick=e=>{
+    removePrizeName(e.currentTarget.dataset.prizeRemove);
+  });
+}
+function prizeOptions(selected, rank){
+  const safeSelected = normalizePrizeName(selected);
+  const currentRank = rank || "";
+  if(!currentRank){
+    let opts = `<option value="">先にレアリティを選択</option>`;
+    if(safeSelected){
+      opts += `<option selected>${esc(safeSelected)}（現在値）</option>`;
+    }
+    return opts;
+  }
+  const allowedNames = prizeNames.filter(name=>prizeRankOf(name) === currentRank);
+  let opts = `<option value="">景品名未設定</option>`;
+
+  if(safeSelected && !allowedNames.includes(safeSelected)){
+    opts += `<option selected>${esc(safeSelected)}（現在値）</option>`;
+  }
+
+  opts += allowedNames.map(name=>`<option ${safeSelected===name ? "selected" : ""}>${esc(name)}</option>`).join("");
+  opts += `<option value="__custom__">直接入力して${esc(currentRank)}景品に登録...</option>`;
+  return opts;
+}
+
+function selectedCollageItems(){
+  return collageItems.filter(it=>it.selected);
+}
+function bulkPrizeOptions(rank, selected){
+  const safeSelected = normalizePrizeName(selected);
+  if(!rank){
+    return `<option value="">先に景品用レアリティを選択</option>`;
+  }
+  const allowedNames = prizeNames.filter(name=>prizeRankOf(name) === rank);
+  let opts = `<option value="">景品名を選択</option>`;
+  opts += allowedNames.map(name=>`<option ${safeSelected===name ? "selected" : ""}>${esc(name)}</option>`).join("");
+  opts += `<option value="__custom__">直接入力して${esc(rank)}景品に登録...</option>`;
+  return opts;
+}
+function updateBulkEditUI(){
+  const count = selectedCollageItems().length;
+  if($("bulkSelectedCount")) $("bulkSelectedCount").textContent = `${count}件選択中`;
+
+  const rank = $("bulkPrizeRankSelect") ? $("bulkPrizeRankSelect").value : "";
+  const prizeSelect = $("bulkPrizeSelect");
+  const customInput = $("bulkPrizeCustomInput");
+  const row = prizeSelect ? prizeSelect.closest(".bulkEditRow") : null;
+  const current = prizeSelect ? prizeSelect.value : "";
+
+  if(prizeSelect){
+    prizeSelect.innerHTML = bulkPrizeOptions(rank, current);
+    if(current && [...prizeSelect.options].some(opt=>opt.value === current)){
+      prizeSelect.value = current;
+    }
+  }
+
+  const isCustom = prizeSelect && prizeSelect.value === "__custom__";
+  if(customInput){
+    customInput.classList.toggle("hidden", !isCustom);
+    if(isCustom){
+      customInput.focus();
+    }else{
+      customInput.value = "";
+    }
+  }
+  if(row){
+    row.classList.toggle("withCustomPrize", !!isCustom);
+  }
+}
+function setAllSelected(flag){
+  collageItems.forEach(it=>it.selected = !!flag);
+  saveState();
+  render();
+}
+function applyBulkRank(){
+  const rank = $("bulkRankSelect") ? $("bulkRankSelect").value : "";
+  const targets = selectedCollageItems();
+  if(!targets.length){
+    alert("先に変更したい画像へチェックを入れてください。");
+    return;
+  }
+  if(!rank){
+    alert("一括変更するレアリティを選択してください。");
+    return;
+  }
+  targets.forEach(it=>{
+    it.rank = rank;
+    if(it.note && prizeRankOf(it.note) && prizeRankOf(it.note) !== rank){
+      it.note = "";
+    }
+    it.selected = false;
+  });
+  saveState();
+  render();
+}
+function applyBulkPrize(){
+  const rank = $("bulkPrizeRankSelect") ? $("bulkPrizeRankSelect").value : "";
+  const prizeSelect = $("bulkPrizeSelect");
+  const customInput = $("bulkPrizeCustomInput");
+  let prize = prizeSelect ? prizeSelect.value : "";
+  const targets = selectedCollageItems();
+
+  if(!targets.length){
+    alert("先に変更したい画像へチェックを入れてください。");
+    return;
+  }
+  if(!rank){
+    alert("景品用レアリティを選択してください。");
+    return;
+  }
+
+  if(prize === "__custom__"){
+    const custom = customInput ? customInput.value.trim() : "";
+    if(!custom){
+      alert("追加する景品名を入力してください。");
+      if(customInput) customInput.focus();
+      return;
+    }
+    prize = ensurePrizeName(custom, rank);
+  }
+
+  if(!prize){
+    alert("景品名を選択してください。");
+    return;
+  }
+
+  targets.forEach(it=>{
+    it.rank = rank;
+    it.note = normalizePrizeName(prize);
+    it.selected = false;
+  });
+
+  if(prizeSelect) prizeSelect.value = "";
+  if(customInput){
+    customInput.value = "";
+    customInput.classList.add("hidden");
+  }
+
+  saveState();
+  render();
+}
+
+function addPrizeFromInput(){
+  const input = $("prizeNameInput");
+  const rank = $("prizeRankSelect") ? $("prizeRankSelect").value : "その他";
+  const value = ensurePrizeName(input ? input.value : "", rank);
+  if(input) input.value = "";
+  if(!value){
+    alert("景品名を入力してください。");
+    return;
+  }
+  saveState();
+  if($("prizeToolsDetails")) $("prizeToolsDetails").open = true;
+  render();
 }
 function currentImageFit(){
   const el = $("imageFitSelect");
@@ -1115,6 +1985,62 @@ function clearHeaderImage(){
   render();
 }
 
+
+function resetCollageToInitial(){
+  if(!confirm("コラージュを初期状態に戻しますか？\n画像・景品名リスト・タイトル画像・各種設定もリセットされます。")) return;
+
+  collageItems = [];
+  currentDict = "";
+  includeOg = false;
+  includeMlineSenior = false;
+  headerImageData = "";
+  prizeNames = [...defaultPrizeNames];
+  prizeRankMap = {};
+  for(const [rank, names] of Object.entries(defaultPrizeNamesByRank)){
+    names.forEach(name=>prizeRankMap[name] = rank);
+  }
+
+  if($("collageTitleInput")) $("collageTitleInput").value = "モバガチャ コラージュ";
+  if($("collageSubInput")) $("collageSubInput").value = "";
+  if($("dictionarySelect")) $("dictionarySelect").value = "";
+  if($("includeOgCheck")) $("includeOgCheck").checked = false;
+  if($("includeMlineSeniorCheck")) $("includeMlineSeniorCheck").checked = false;
+  if($("themeSelect")) $("themeSelect").value = "#d71920";
+  if($("columnsSelect")) $("columnsSelect").value = "4";
+  if($("imageFitSelect")) $("imageFitSelect").value = "contain";
+  if($("sortSelect")) $("sortSelect").value = "rarity_item_member";
+  if($("prizeNameInput")) $("prizeNameInput").value = "";
+  if($("headerImageInput")) $("headerImageInput").value = "";
+  if($("collageFilesInput")) $("collageFilesInput").value = "";
+  if($("fileAddHint")) $("fileAddHint").textContent = "ボタンを押して画像を選択";
+  if($("tradeTextOutput")) $("tradeTextOutput").value = "";
+  if($("tradeTextPanel")) $("tradeTextPanel").classList.add("hidden");
+  if($("bulkRankSelect")) $("bulkRankSelect").value = "";
+  if($("bulkPrizeRankSelect")) $("bulkPrizeRankSelect").value = "";
+  if($("bulkPrizeSelect")) $("bulkPrizeSelect").innerHTML = `<option value="">景品名を選択</option>`;
+
+  [
+    "collageOnlyItems_v1",
+    "collageOnlyTitle_v1",
+    "collageOnlySub_v1",
+    "collageOnlyDict_v1",
+    "collageOnlyDict_v2",
+    "collageOnlyIncludeOg_v1",
+    "collageOnlyIncludeMlineSenior_v1",
+    "collageOnlyTheme_v1",
+    "collageOnlyColumns_v1",
+    "collageOnlyImageFit_v1",
+    "collageOnlySort_v1",
+    "collageOnlyHeaderImage_v1",
+    "collagePrizeNames_v1",
+    "collagePrizeRankMap_v1"
+  ].forEach(key=>localStorage.removeItem(key));
+
+  saveState();
+  render();
+  window.scrollTo({top:0, behavior:"smooth"});
+}
+
 async function addFiles(){
   const input = $("collageFilesInput");
   const files = Array.from(input.files || []);
@@ -1133,7 +2059,7 @@ async function addFiles(){
     try{
       const dataUrl = await fileToDataURL(file);
       if(dataUrl){
-        collageItems.push({id:uid(), image:dataUrl, rank:"SR", member:"", note:"", isSp:false});
+        collageItems.push({id:uid(), image:dataUrl, rank:"", member:"", note:"", isSp:false, selected:false});
         added++;
       }else{
         failed++;
@@ -1238,12 +2164,16 @@ function render(){
   }
   $("collagePreviewGrid").style.gridTemplateColumns = `repeat(${$("columnsSelect").value}, minmax(0, 1fr))`;
   updateDictionaryUI();
+  updateBulkMemberUI();
+  updatePrizeUI();
+  updateBulkEditUI();
 
   $("collageEditorGrid").innerHTML = collageItems.length ? collageItems.map((it, i)=>`
     <div class="collageEditorCard">
       <div class="collageEditorTop">
         <span class="collageIndex">${i+1} / ${collageItems.length}</span>
         <div class="collageMiniBtns">
+          <label class="editorPickLabel"><input type="checkbox" data-pick="${it.id}" ${it.selected ? "checked" : ""}>選択</label>
           <button class="secondary" data-up="${it.id}">↑</button>
           <button class="secondary" data-down="${it.id}">↓</button>
           <button class="danger" data-remove="${it.id}">削除</button>
@@ -1254,6 +2184,7 @@ function render(){
         <div>
           <label>レア</label>
           <select data-rank="${it.id}">
+            <option value="" ${!it.rank ? "selected" : ""}>未設定</option>
             <option ${it.rank==="SR"?"selected":""}>SR</option>
             <option ${it.rank==="R"?"selected":""}>R</option>
             <option ${it.rank==="N"?"selected":""}>N</option>
@@ -1268,8 +2199,8 @@ function render(){
       <div class="spOptionRow">
         <label class="checkLabel"><input type="checkbox" data-sp="${it.id}" ${it.isSp ? "checked" : ""}> SP版にする</label>
       </div>
-      <label>商品名・補足 任意</label>
-      <input data-note="${it.id}" value="${esc(it.note || "")}" placeholder="例: アクキー / アクキー2 / ダントツ衣装">
+      <label>景品名</label>
+      <select data-prize="${it.id}">${prizeOptions(it.note, it.rank)}</select>
     </div>
   `).join("") : `<div class="emptyPreview">画像を追加すると、ここに編集カードが表示されます。</div>`;
 
@@ -1280,8 +2211,11 @@ function render(){
       </div>
       <div class="collageItemBody">
         <div class="collageItemMeta">
-          ${previewMemberNameHTML(it)}
-          ${it.rank ? `<span class="badge collageItemBadge ${badgeClass(it.rank)}">${esc(it.rank)}</span>` : ``}
+          <div class="collageItemMember">${esc(memberDisplayBase(it.member || "", "full") || " ")}</div>
+          <div class="badgeStack">
+            ${it.isSp ? `<span class="spChip">SP</span>` : ``}
+            ${it.rank ? `<span class="badge collageItemBadge ${badgeClass(it.rank)}">${esc(it.rank)}</span>` : ``}
+          </div>
         </div>
         <div class="collageItemNote">${esc(it.note || " ")}</div>
       </div>
@@ -1294,9 +2228,20 @@ function render(){
   });
   document.querySelectorAll("[data-up]").forEach(btn=>btn.onclick=e=>moveItem(e.target.dataset.up, -1));
   document.querySelectorAll("[data-down]").forEach(btn=>btn.onclick=e=>moveItem(e.target.dataset.down, 1));
+  document.querySelectorAll("[data-pick]").forEach(inp=>inp.onchange=e=>{
+    const it = collageItems.find(x=>x.id===e.target.dataset.pick);
+    if(it){ it.selected = !!e.target.checked; saveState(); render(); }
+  });
   document.querySelectorAll("[data-rank]").forEach(sel=>sel.onchange=e=>{
     const it = collageItems.find(x=>x.id===e.target.dataset.rank);
-    if(it){ it.rank = e.target.value; saveState(); render(); }
+    if(it){
+      it.rank = e.target.value;
+      if(it.note && prizeRankOf(it.note) && prizeRankOf(it.note) !== it.rank){
+        it.note = "";
+      }
+      saveState();
+      render();
+    }
   });
   document.querySelectorAll("[data-member]").forEach(sel=>sel.onchange=e=>{
     const it = collageItems.find(x=>x.id===e.target.dataset.member);
@@ -1313,9 +2258,25 @@ function render(){
     const it = collageItems.find(x=>x.id===e.target.dataset.sp);
     if(it){ it.isSp = !!e.target.checked; saveState(); render(); }
   });
-  document.querySelectorAll("[data-note]").forEach(inp=>inp.onchange=e=>{
-    const it = collageItems.find(x=>x.id===e.target.dataset.note);
-    if(it){ it.note = e.target.value; saveState(); render(); }
+  document.querySelectorAll("[data-prize]").forEach(sel=>sel.onchange=e=>{
+    const it = collageItems.find(x=>x.id===e.target.dataset.prize);
+    if(!it) return;
+    if(!it.rank){
+      alert("先にレアリティを選択してください。");
+      render();
+      return;
+    }
+    if(e.target.value === "__custom__"){
+      const custom = prompt("景品名を入力してください", it.note || "");
+      if(custom !== null){
+        it.note = ensurePrizeName(custom, it.rank || "その他");
+      }
+    }else{
+      it.note = normalizePrizeName(e.target.value);
+      if(it.note) ensurePrizeName(it.note, it.rank || prizeRankOf(it.note) || "その他");
+    }
+    saveState();
+    render();
   });
 }
 
@@ -1866,6 +2827,443 @@ async function shareOrShowImage(){
   }
 }
 
+
+.prizeTools{
+  margin:10px 0 14px;
+  padding:12px;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+}
+.prizeAddRow{
+  display:grid;
+  grid-template-columns:120px 1fr auto;
+  gap:8px;
+  align-items:center;
+}
+.prizePills{
+  margin-top:8px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:6px;
+}
+.prizePill{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  background:#fff;
+  border:1px solid #d7dde6;
+  border-radius:999px;
+  padding:6px 8px 6px 10px;
+  font-size:12px;
+  font-weight:900;
+}
+.prizePill button{
+  min-width:auto;
+  min-height:0;
+  padding:2px 7px;
+  border-radius:999px;
+  background:#eef2f7;
+  color:#475569;
+  font-size:12px;
+  line-height:1.2;
+}
+.prizePill button:hover{
+  background:#e2e8f0;
+}
+@media(max-width:720px){
+  .prizeAddRow{
+    grid-template-columns:1fr;
+  }
+  .prizeTools{
+    margin-top:12px;
+  }
+}
+
+
+@media(max-width:720px){
+  .collageControlRow #resetCollageBtn{
+    font-size:12px !important;
+  }
+}
+
+
+.prizeGroup{
+  width:100%;
+  margin-top:8px;
+}
+.prizeGroupTitle{
+  font-size:12px;
+  font-weight:900;
+  color:var(--muted);
+  margin:8px 0 5px;
+}
+.prizePill.defaultPrize{
+  background:#fffdf8;
+  border-color:#eadfc7;
+}
+
+
+/* v30 prize list collapsed by default */
+.prizeTools{
+  margin:10px 0 14px;
+  padding:0;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+  overflow:hidden;
+}
+.prizeTools summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:11px 13px;
+  font-weight:900;
+  color:var(--ink);
+  user-select:none;
+}
+.prizeTools summary::-webkit-details-marker{
+  display:none;
+}
+.prizeTools summary::after{
+  content:"開く";
+  flex:0 0 auto;
+  background:#fff;
+  border:1px solid #d7dde6;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:12px;
+  color:var(--muted);
+}
+.prizeTools[open] summary::after{
+  content:"閉じる";
+}
+.prizeTools summary small{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+}
+.prizeToolsInner{
+  padding:0 12px 12px;
+  border-top:1px solid #e5e7eb;
+}
+@media(max-width:720px){
+  .prizeTools{
+    margin:8px 0 12px;
+  }
+  .prizeTools summary{
+    padding:10px 11px;
+  }
+  .prizeTools summary small{
+    display:none;
+  }
+}
+
+
+/* v31 SP badge layout */
+.badgeStack{
+  flex:0 0 auto;
+  display:inline-flex;
+  align-items:center;
+  justify-content:flex-end;
+  gap:4px;
+  margin-left:auto;
+}
+.badgeStack .collageItemBadge{
+  min-width:38px;
+  height:24px;
+  padding:0 9px;
+  font-size:12px;
+  line-height:1;
+}
+.badgeStack .spChip{
+  min-width:30px;
+  height:22px;
+  padding:0 7px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  background:#7c3aed;
+  color:#fff;
+  font-size:10px;
+  font-weight:900;
+  line-height:1;
+  box-shadow:none;
+}
+.collageItemMeta{
+  align-items:center;
+}
+.collageItemMeta > .collageItemMember{
+  min-width:0;
+  flex:1 1 auto;
+  margin-bottom:0;
+}
+.memberLabelWrap{
+  display:contents;
+}
+@media(max-width:720px){
+  .badgeStack{
+    gap:3px;
+  }
+  .badgeStack .collageItemBadge{
+    min-width:34px;
+    height:23px;
+    padding:0 8px;
+    font-size:11px;
+  }
+  .badgeStack .spChip{
+    min-width:28px;
+    height:21px;
+    padding:0 6px;
+    font-size:10px;
+  }
+}
+
+
+/* v32: keep member name on one line */
+.collageItemMeta{
+  display:grid !important;
+  grid-template-columns:minmax(0, 1fr) auto;
+  align-items:center;
+  gap:6px;
+}
+.collageItemMeta > .collageItemMember{
+  min-width:0;
+  white-space:nowrap !important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  margin-bottom:0 !important;
+  line-height:1.15;
+}
+.badgeStack{
+  min-width:max-content;
+  gap:3px;
+}
+.badgeStack .collageItemBadge{
+  min-width:34px;
+  height:23px;
+  padding:0 8px;
+  font-size:11px;
+}
+.badgeStack .spChip{
+  min-width:27px;
+  height:21px;
+  padding:0 6px;
+  font-size:10px;
+}
+@media(max-width:720px){
+  .collageItemMeta{
+    gap:4px;
+  }
+  .badgeStack .collageItemBadge{
+    min-width:32px;
+    height:22px;
+    padding:0 7px;
+    font-size:10px;
+  }
+  .badgeStack .spChip{
+    min-width:25px;
+    height:20px;
+    padding:0 5px;
+    font-size:9px;
+  }
+}
+
+
+/* v33 subtle bulk member editor */
+.bulkMemberTools{
+  margin:8px 0 12px;
+  padding:0;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+  overflow:hidden;
+}
+.bulkMemberTools summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 13px;
+  font-weight:900;
+  color:var(--ink);
+  user-select:none;
+}
+.bulkMemberTools summary::-webkit-details-marker{
+  display:none;
+}
+.bulkMemberTools summary::after{
+  content:"開く";
+  flex:0 0 auto;
+  background:#fff;
+  border:1px solid #d7dde6;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:12px;
+  color:var(--muted);
+}
+.bulkMemberTools[open] summary::after{
+  content:"閉じる";
+}
+.bulkMemberTools summary small{
+  font-size:12px;
+  color:var(--muted);
+  font-weight:800;
+}
+.bulkMemberInner{
+  padding:0 12px 12px;
+  border-top:1px solid #e5e7eb;
+}
+.bulkMemberRow{
+  display:grid;
+  grid-template-columns:1fr auto auto;
+  gap:8px;
+  align-items:center;
+  margin-top:10px;
+}
+@media(max-width:720px){
+  .bulkMemberTools{
+    margin:8px 0 12px;
+  }
+  .bulkMemberTools summary{
+    padding:10px 11px;
+  }
+  .bulkMemberTools summary small{
+    display:none;
+  }
+  .bulkMemberRow{
+    grid-template-columns:1fr 1fr;
+  }
+  .bulkMemberRow select{
+    grid-column:1 / -1;
+  }
+}
+
+
+/* v35 bulk edit panel */
+.bulkEditPanel{
+  margin:10px 0 14px;
+  padding:12px;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+}
+.bulkEditHead{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  margin-bottom:8px;
+}
+.bulkEditRow{
+  display:grid;
+  grid-template-columns:auto auto;
+  gap:8px;
+  margin-top:8px;
+  align-items:center;
+}
+.bulkEditRow:nth-of-type(3){
+  grid-template-columns:180px minmax(0,1fr) auto;
+}
+.editorPickLabel{
+  display:inline-flex;
+  align-items:center;
+  gap:6px;
+  font-size:12px;
+  font-weight:900;
+  color:var(--muted);
+}
+.editorPickLabel input{
+  width:16px;
+  height:16px;
+}
+@media(max-width:720px){
+  .bulkEditPanel{
+    padding:10px;
+  }
+  .bulkEditHead{
+    align-items:flex-start;
+    flex-direction:column;
+    margin-bottom:6px;
+  }
+  .bulkEditRow{
+    grid-template-columns:1fr 1fr;
+  }
+  .bulkEditRow:nth-of-type(3){
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* v36 bulk prize custom input */
+.bulkEditRow.withCustomPrize{
+  grid-template-columns:140px minmax(0,1fr) minmax(0,1fr) auto;
+}
+@media(max-width:720px){
+  .bulkEditRow.withCustomPrize{
+    grid-template-columns:1fr;
+  }
+}
+
+
+/* v37 reordered sections + collapsed bulk edit */
+.bulkEditTools{
+  padding:0 !important;
+  overflow:hidden;
+}
+.bulkEditTools summary{
+  list-style:none;
+  cursor:pointer;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  padding:10px 13px;
+  font-weight:900;
+  color:var(--ink);
+  user-select:none;
+}
+.bulkEditTools summary::-webkit-details-marker{
+  display:none;
+}
+.bulkEditTools summary::after{
+  content:"開く";
+  flex:0 0 auto;
+  background:#fff;
+  border:1px solid #d7dde6;
+  border-radius:999px;
+  padding:4px 10px;
+  font-size:12px;
+  color:var(--muted);
+}
+.bulkEditTools[open] summary::after{
+  content:"閉じる";
+}
+.bulkEditTools #bulkSelectedCount{
+  margin-left:auto;
+}
+.bulkEditInner{
+  padding:0 12px 12px;
+  border-top:1px solid #e5e7eb;
+}
+.bulkEditInner .bulkEditRow:first-child{
+  margin-top:10px;
+}
+@media(max-width:720px){
+  .bulkEditTools summary{
+    padding:10px 11px;
+  }
+  .bulkEditTools #bulkSelectedCount{
+    margin-left:0;
+  }
+}
+
 </style></head><body><p>画像を長押しして「写真に保存」または「画像を保存」を選んでください。</p><img src="${dataUrl}" alt="保存用画像"></body></html>`;
     if(preOpened && !preOpened.closed){
       preOpened.document.open();
@@ -1887,6 +3285,27 @@ document.addEventListener("DOMContentLoaded", ()=>{
     $("collageFilesInput").click();
   });
   $("collageFilesInput").addEventListener("change", addFiles);
+  $("applyBulkMemberAllBtn").addEventListener("click", ()=>applyBulkMember(false));
+  $("applyBulkMemberBlankBtn").addEventListener("click", ()=>applyBulkMember(true));
+  $("selectAllItemsBtn").addEventListener("click", ()=>setAllSelected(true));
+  $("clearSelectedItemsBtn").addEventListener("click", ()=>setAllSelected(false));
+  $("applyBulkRankBtn").addEventListener("click", applyBulkRank);
+  $("applyBulkPrizeBtn").addEventListener("click", applyBulkPrize);
+  $("bulkPrizeRankSelect").addEventListener("change", ()=>updateBulkEditUI());
+  $("bulkPrizeSelect").addEventListener("change", ()=>updateBulkEditUI());
+  $("bulkPrizeCustomInput").addEventListener("keydown", e=>{
+    if(e.key === "Enter"){
+      e.preventDefault();
+      applyBulkPrize();
+    }
+  });
+  $("addPrizeNameBtn").addEventListener("click", addPrizeFromInput);
+  $("prizeNameInput").addEventListener("keydown", e=>{
+    if(e.key === "Enter"){
+      e.preventDefault();
+      addPrizeFromInput();
+    }
+  });
   $("selectHeaderImageBtn").addEventListener("click", ()=>$("headerImageInput").click());
   $("headerImageInput").addEventListener("change", chooseHeaderImage);
   $("clearHeaderImageBtn").addEventListener("click", clearHeaderImage);
@@ -1897,6 +3316,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
       render();
     }
   });
+  $("resetCollageBtn").addEventListener("click", resetCollageToInitial);
   $("saveCollagePngBtn").addEventListener("click", async()=>{
     const canvas = await makeCanvas();
     const a = document.createElement("a");
@@ -1912,10 +3332,13 @@ document.addEventListener("DOMContentLoaded", ()=>{
       headerImage:headerImageData,
       dictionary:currentDict,
       includeOg,
+      includeMlineSenior,
       theme:$("themeSelect").value,
       columns:$("columnsSelect").value,
       imageFit:currentImageFit(),
       sort:$("sortSelect").value,
+      prizeNames,
+      prizeRankMap,
       items:collageItems
     }, null, 2), "mobagacha_collage_data.json", "application/json");
   });
@@ -1930,13 +3353,28 @@ document.addEventListener("DOMContentLoaded", ()=>{
       headerImageData = data.headerImage || "";
       currentDict = data.dictionary || "";
       includeOg = !!data.includeOg;
+      includeMlineSenior = !!data.includeMlineSenior;
       $("dictionarySelect").value = currentDict;
       $("includeOgCheck").checked = includeOg;
+      if($("includeMlineSeniorCheck")) $("includeMlineSeniorCheck").checked = includeMlineSenior;
+  if($("includeMlineSeniorCheck")) $("includeMlineSeniorCheck").checked = includeMlineSenior;
       $("themeSelect").value = data.theme || "#d71920";
       $("columnsSelect").value = data.columns || "4";
       if($("imageFitSelect")) $("imageFitSelect").value = data.imageFit || "contain";
       $("sortSelect").value = data.sort || "manual";
-      collageItems = data.items || [];
+      collageItems = (data.items || []).map(item=>({...item, selected: !!item.selected}));
+      const loadedPrizeNames = Array.isArray(data.prizeNames) ? data.prizeNames.map(normalizePrizeName).filter(Boolean) : [];
+      const loadedPrizeRankMap = data.prizeRankMap && typeof data.prizeRankMap === "object" ? data.prizeRankMap : {};
+      prizeRankMap = {...prizeRankMap, ...loadedPrizeRankMap};
+      for(const [rank, names] of Object.entries(defaultPrizeNamesByRank)){
+        names.forEach(name=>prizeRankMap[name] = rank);
+      }
+      prizeNames = [...new Set([...defaultPrizeNames, ...prizeNames, ...loadedPrizeNames])];
+      for(const item of collageItems){
+        if(item && item.note){
+          ensurePrizeName(item.note, item.rank || prizeRankOf(item.note) || "その他");
+        }
+      }
       saveState();
       render();
     }catch(err){
@@ -1949,6 +3387,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
   $("collageSubInput").addEventListener("input", ()=>{saveState(); render();});
   $("dictionarySelect").addEventListener("change", e=>{currentDict=e.target.value; saveState(); render();});
   $("includeOgCheck").addEventListener("change", e=>{includeOg=e.target.checked; saveState(); render();});
+  if($("includeMlineSeniorCheck")) $("includeMlineSeniorCheck").addEventListener("change", e=>{includeMlineSenior=e.target.checked; saveState(); render();});
   $("themeSelect").addEventListener("change", ()=>{saveState(); render();});
   $("columnsSelect").addEventListener("change", ()=>{saveState(); render();});
   if($("imageFitSelect")) $("imageFitSelect").addEventListener("change", ()=>{saveState();});
