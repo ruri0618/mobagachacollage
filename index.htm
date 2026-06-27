@@ -1,0 +1,1551 @@
+<!doctype html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>モバガチャ コラージュメーカー</title>
+<style>
+:root{
+  --bg:#fffdf8; --panel:#ffffff; --soft:#fff4df; --line:#ded7ca; --ink:#1f2933; --muted:#607080;
+  --main:#d71920; --dark:#2b2f36; --blue:#4d85c5; --orange:#c56635; --green:#2e9d49; --purple:#7873a8;
+}
+*{box-sizing:border-box}
+body{
+  margin:0;
+  background:linear-gradient(180deg,#fffdf8,#fff9ef);
+  color:var(--ink);
+  font-family:system-ui,-apple-system,"Segoe UI","Noto Sans JP","Hiragino Kaku Gothic ProN",Meiryo,sans-serif;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:18px 14px 44px}
+.hero{
+  background:var(--soft);
+  border:2px solid #f0d7a5;
+  border-radius:24px;
+  padding:20px 24px;
+  margin-bottom:14px;
+}
+h1{margin:0 0 8px;color:var(--main);font-size:clamp(24px,3.3vw,40px);line-height:1.25}
+.hero p{margin:0;color:var(--muted);font-weight:800;line-height:1.7}
+.panel{
+  background:var(--panel);
+  border:1.5px solid #e5ddcf;
+  border-radius:22px;
+  padding:16px;
+  box-shadow:0 6px 24px rgba(68,53,28,.06);
+}
+.panel h2{font-size:20px;margin:0 0 10px}
+label{display:block;font-size:12px;font-weight:900;color:var(--muted);margin:10px 0 5px}
+input,select,textarea{
+  width:100%;
+  border:1.5px solid #d7dde6;
+  border-radius:14px;
+  padding:10px 12px;
+  font-size:14px;
+  background:#fff;
+  color:var(--ink);
+}
+button{
+  border:0;
+  border-radius:999px;
+  padding:10px 14px;
+  font-weight:900;
+  cursor:pointer;
+  background:var(--dark);
+  color:#fff;
+  font-size:13px;
+}
+button.secondary{background:#fff;color:var(--dark);border:1.5px solid #cfd7e3}
+button.danger{background:#b42318}
+button.good{background:var(--green)}
+button.main{background:var(--main)}
+.small{font-size:12px;color:var(--muted);line-height:1.65}
+.checkLabel{
+  display:flex;
+  align-items:center;
+  gap:8px;
+  margin-top:9px;
+  font-size:13px;
+  font-weight:900;
+  color:var(--ink);
+}
+.checkLabel input{
+  width:20px;
+  height:20px;
+  min-height:20px;
+  accent-color:var(--main);
+}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.badge{
+  display:inline-block;
+  color:#fff;
+  border-radius:999px;
+  padding:5px 10px;
+  font-weight:900;
+  min-width:48px;
+  text-align:center;
+}
+.badge.A,.badge.SR,.badge.S{background:var(--blue)}
+.badge.B,.badge.R{background:var(--orange)}
+.badge.C,.badge.N{background:var(--green)}
+.badge.D{background:var(--purple)}
+
+.collageTopRow{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:10px;
+  margin-bottom:10px;
+}
+.collageControlRow{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+  margin-bottom:12px;
+  background:#f4f7fb;
+  border:1px solid #d7dde6;
+  border-radius:18px;
+  padding:10px;
+}
+.collageControlRow input[type=file]{
+  flex:1 1 280px;
+}
+#fileAddHint{
+  align-self:center;
+  white-space:nowrap;
+}
+.themeRow{
+  display:grid;
+  grid-template-columns:1fr 1fr 1fr;
+  gap:10px;
+  margin-bottom:12px;
+}
+.collageEditorGrid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(240px,1fr));
+  gap:10px;
+  margin-bottom:16px;
+}
+.collageEditorCard{
+  border:1.5px solid #ddd4c7;
+  border-radius:18px;
+  background:#fff;
+  padding:10px;
+}
+.collageEditorPreview{
+  width:100%;
+  aspect-ratio:1/1;
+  border-radius:14px;
+  overflow:hidden;
+  background:#f6f3ec;
+  border:1.5px solid #e5ddcf;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  margin-bottom:8px;
+}
+.collageEditorPreview img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.collageEditorTop{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:8px;
+  margin-bottom:8px;
+}
+.collageIndex{
+  font-size:12px;
+  font-weight:900;
+  color:var(--muted);
+}
+.collageMiniBtns{
+  display:flex;
+  gap:6px;
+}
+.collageMiniBtns button{
+  min-width:auto;
+  padding:7px 9px;
+}
+.collageEditorCard .row2{
+  margin-top:6px;
+}
+.collageCaptureArea{
+  background:#fffdf8;
+  border:1.5px solid #eadfc7;
+  border-radius:24px;
+  padding:14px;
+}
+.collageHeader{
+  background:var(--soft);
+  border:2px solid #f0d7a5;
+  border-radius:20px;
+  padding:12px 16px;
+  margin-bottom:12px;
+}
+.collageHeader h2{
+  margin:0 0 4px;
+  color:var(--main);
+  font-size:28px;
+  line-height:1.15;
+}
+.collageHeader p{
+  margin:0;
+  color:var(--muted);
+  font-size:15px;
+  font-weight:800;
+  line-height:1.35;
+}
+.collagePreviewGrid{
+  display:grid;
+  grid-template-columns:repeat(4,minmax(0,1fr));
+  gap:10px;
+}
+.emptyPreview{
+  grid-column:1 / -1;
+  color:var(--muted);
+  font-weight:900;
+  text-align:center;
+  padding:28px 12px;
+  border:1.5px dashed #d7dde6;
+  border-radius:18px;
+  background:#fff;
+}
+.collageItemCard{
+  background:#fff;
+  border:1.5px solid #ddd4c7;
+  border-radius:18px;
+  overflow:hidden;
+}
+.collageItemImageWrap{
+  position:relative;
+  aspect-ratio:1/1;
+  background:
+    linear-gradient(45deg, rgba(0,0,0,.025) 25%, transparent 25% 75%, rgba(0,0,0,.025) 75%),
+    linear-gradient(45deg, rgba(0,0,0,.025) 25%, transparent 25% 75%, rgba(0,0,0,.025) 75%);
+  background-color:#f8f5ee;
+  background-position:0 0, 8px 8px;
+  background-size:16px 16px;
+}
+.collageItemImageWrap img{
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  display:block;
+}
+.collageCaptureArea.export-contain .collageItemImageWrap,
+.collageCaptureArea.export-cover .collageItemImageWrap{
+  overflow:hidden;
+}
+.collageCaptureArea.export-contain .collageItemImageWrap img,
+.collageCaptureArea.export-cover .collageItemImageWrap img{
+  object-fit:unset !important;
+  position:absolute;
+  top:50%;
+  left:50%;
+  transform:translate(-50%,-50%);
+  max-width:none;
+  max-height:none;
+}
+
+/* 保存時：画像全体表示・比率維持 */
+.collageCaptureArea.export-contain .collageItemImageWrap img.img-landscape,
+.collageCaptureArea.export-contain .collageItemImageWrap img.img-square{
+  width:100%;
+  height:auto;
+}
+.collageCaptureArea.export-contain .collageItemImageWrap img.img-portrait{
+  width:auto;
+  height:100%;
+}
+
+/* 保存時：正方形トリミング。ただし比率は崩さない */
+.collageCaptureArea.export-cover .collageItemImageWrap img.img-landscape{
+  width:auto;
+  height:100%;
+  min-width:100%;
+}
+.collageCaptureArea.export-cover .collageItemImageWrap img.img-portrait,
+.collageCaptureArea.export-cover .collageItemImageWrap img.img-square{
+  width:100%;
+  height:auto;
+  min-height:100%;
+}
+.collageItemBadge{
+  position:static;
+  flex:0 0 auto;
+  min-width:42px;
+  height:26px;
+  padding:0 10px;
+  border-radius:999px;
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  font-size:13px;
+  line-height:1;
+  box-shadow:none;
+}
+.collageItemBody{
+  padding:10px 10px 12px;
+}
+.collageItemMember{
+  font-size:16px;
+  font-weight:900;
+  line-height:1.2;
+  margin-bottom:4px;
+  word-break:break-word;
+}
+.collageItemNote{
+  font-size:12px;
+  color:var(--muted);
+  line-height:1.4;
+  word-break:break-word;
+}
+.pill{
+  display:inline-block;
+  background:#f1f5f9;
+  border:1px solid #d7dde6;
+  border-radius:999px;
+  padding:5px 9px;
+  margin:3px 3px 0 0;
+  font-size:12px;
+  font-weight:800;
+}
+.imageModal{
+  position:fixed;
+  inset:0;
+  z-index:9999;
+  background:rgba(0,0,0,.55);
+  padding:18px;
+  overflow:auto;
+}
+.imageModalInner{
+  max-width:760px;
+  margin:20px auto;
+  background:#fffdf8;
+  border-radius:22px;
+  padding:16px;
+  box-shadow:0 18px 60px rgba(0,0,0,.28);
+}
+.imageModalTitle{
+  font-weight:900;
+  font-size:20px;
+  margin-bottom:6px;
+}
+.imageModalText{
+  color:var(--muted);
+  font-weight:800;
+  font-size:13px;
+  line-height:1.6;
+  margin-bottom:12px;
+}
+.imageModal img{
+  width:100%;
+  height:auto;
+  display:block;
+  border-radius:16px;
+  border:1.5px solid #ddd4c7;
+  background:#fff;
+  margin-bottom:12px;
+}
+.hidden{display:none!important}
+
+@media(max-width:980px){
+  .collagePreviewGrid{grid-template-columns:repeat(3,minmax(0,1fr))}
+}
+@media(max-width:720px){
+  .wrap{padding:10px 8px 96px}
+  .hero{padding:14px 16px;border-radius:18px;margin-bottom:10px}
+  h1{font-size:22px}
+  .hero p{font-size:13px;line-height:1.55}
+  .panel{border-radius:18px;padding:12px;box-shadow:none}
+  .row2,.collageTopRow,.themeRow{grid-template-columns:1fr;gap:7px}
+  input,select,textarea{min-height:44px;font-size:16px;border-radius:13px}
+  .collageControlRow{
+    position:sticky;
+    bottom:8px;
+    z-index:20;
+    display:flex;
+    flex-wrap:nowrap;
+    overflow-x:auto;
+    gap:8px;
+    padding:9px;
+    border-radius:999px;
+    box-shadow:0 8px 28px rgba(31,41,51,.18);
+    -webkit-overflow-scrolling:touch;
+  }
+  .collageControlRow::-webkit-scrollbar{display:none}
+  .collageControlRow button,
+  .collageControlRow input{
+    flex:0 0 auto;
+    width:auto;
+    min-width:max-content;
+    min-height:40px;
+    white-space:nowrap;
+    font-size:13px;
+  }
+  .collageControlRow input[type=file]{
+    min-width:240px;
+  }
+  .collageEditorGrid{grid-template-columns:1fr}
+  .collagePreviewGrid{
+    grid-template-columns:repeat(2,minmax(0,1fr));
+    gap:8px;
+  }
+  .collageHeader h2{font-size:24px}
+  .collageHeader p{font-size:14px}
+}
+
+.tradeTextPanel{
+  background:#f8fafc;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  padding:12px;
+  margin:0 0 14px;
+}
+.tradeTextHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
+}
+.tradeTextHeader strong{
+  font-size:16px;
+}
+#tradeTextOutput{
+  display:block;
+  width:100%;
+  min-height:220px;
+  background:#fff;
+  font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  line-height:1.6;
+  white-space:pre;
+}
+
+
+.headerImageTools{
+  margin:12px 0 16px;
+  padding:12px;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+}
+.headerImageButtons{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+}
+#headerImageHint{
+  align-self:center;
+}
+.collageHeaderImage{
+  display:block;
+  width:100%;
+  max-height:170px;
+  object-fit:contain;
+  margin:0 auto;
+  border-radius:14px;
+}
+.collageHeader.using-image{
+  padding:10px;
+}
+.collageHeader.using-image h2,
+.collageHeader.using-image p{
+  display:none;
+}
+@media (max-width:720px){
+  .headerImageButtons button{
+    flex:1 1 100%;
+  }
+  .collageHeaderImage{
+    max-height:130px;
+  }
+}
+
+
+.collageItemMeta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.collageItemMeta .collageItemMember{
+  min-width:0;
+  flex:1 1 auto;
+}
+
+
+.collageItemImageWrap .collageItemBadge{
+  display:none !important;
+}
+
+
+.tradeTextHeaderControls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.tradeTextHeaderControls select{
+  min-height:38px;
+  width:auto;
+  min-width:130px;
+  padding:8px 10px;
+}
+@media (max-width:720px){
+  .tradeTextHeader{
+    align-items:flex-start;
+  }
+  .tradeTextHeaderControls{
+    width:100%;
+  }
+  .tradeTextHeaderControls select,
+  .tradeTextHeaderControls button{
+    flex:1 1 0;
+  }
+}
+
+
+.spOptionRow{
+  margin-top:8px;
+}
+.spOptionRow .checkLabel{
+  margin-top:0;
+  font-size:12px;
+}
+.spOptionRow .checkLabel input{
+  width:18px;
+  height:18px;
+  min-height:18px;
+}
+.memberLabelWrap{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.memberLabelWrap .collageItemMember{
+  margin-bottom:0;
+}
+.spChip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:34px;
+  height:22px;
+  padding:0 8px;
+  border-radius:999px;
+  background:var(--purple);
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  line-height:1;
+}
+
+</style>
+</head>
+<body>
+<div class="wrap">
+  <section class="hero">
+    <h1>モバガチャ コラージュメーカー</h1>
+    <p>画像をまとめて登録して、SR/R/N・メンバー名・補足入りのコラージュを作れます。</p>
+  </section>
+
+  <section class="panel">
+    <h2>コラージュ作成</h2>
+    <p class="small">画像を複数枚まとめて追加できます。レアリティ・メンバー名・商品名を設定し、SP版チェックも付けられます。メンバー序列/レアリティ/商品名でソートでき、タイトル/サブタイトル欄は画像で代用できます。保存時の画像だけ「全体表示・比率維持」と「正方形トリミング・比率維持」を切り替えできます。</p>
+
+    <div class="collageTopRow">
+      <div>
+        <label>コラージュタイトル</label>
+        <input id="collageTitleInput" value="モバガチャ コラージュ">
+      </div>
+      <div>
+        <label>コラージュサブタイトル</label>
+        <input id="collageSubInput" value="">
+      </div>
+    </div>
+
+    <div class="headerImageTools">
+      <div>
+        <label>タイトル画像 任意</label>
+        <div class="headerImageButtons">
+          <input id="headerImageInput" type="file" accept="image/*" hidden>
+          <button id="selectHeaderImageBtn" class="secondary" type="button">タイトル画像を選択/変更</button>
+          <button id="clearHeaderImageBtn" class="secondary" type="button">タイトル画像を削除</button>
+          <span id="headerImageHint" class="small">未設定：通常のタイトル/サブタイトルを表示</span>
+        </div>
+        <p class="small">画像を設定すると、保存画像ではタイトル/サブタイトル欄の代わりにこの画像を表示します。</p>
+      </div>
+    </div>
+
+    <div class="themeRow">
+      <div>
+        <label>メンバー辞書</label>
+        <select id="dictionarySelect">
+          <option value="all">ハロプロ全体</option>
+          <option value="all_mline">ハロプロ + M-line</option>
+          <option value="mline">M-line club</option>
+          <option value="morning">モーニング娘。'26</option>
+          <option value="angerme">アンジュルム</option>
+          <option value="juice">Juice=Juice</option>
+          <option value="tsubaki">つばきファクトリー</option>
+          <option value="beyond">BEYOOOOONDS</option>
+          <option value="ocha">OCHA NORMA</option>
+          <option value="rosy">ロージークロニクル</option>
+        </select>
+        <label class="checkLabel"><input id="includeOgCheck" type="checkbox"> OGも含める（2023年時点で在籍メンバー）</label>
+      </div>
+      <div>
+        <label>テーマ色</label>
+        <select id="themeSelect">
+          <option value="#d71920">赤</option>
+          <option value="#4d85c5">青</option>
+          <option value="#f0b429">黄色</option>
+          <option value="#7c3aed">紫</option>
+          <option value="#2e9d49">ミント/緑</option>
+          <option value="#ec4899">ピンク</option>
+          <option value="#2b2f36">黒</option>
+        </select>
+      </div>
+      <div>
+        <label>列数</label>
+        <select id="columnsSelect">
+          <option value="3">3列</option>
+          <option value="4" selected>4列</option>
+          <option value="5">5列</option>
+        </select>
+      </div>
+      <div>
+        <label>保存時の画像表示</label>
+        <select id="imageFitSelect">
+          <option value="contain" selected>画像全体表示・比率維持</option>
+          <option value="cover">正方形トリミング・比率維持</option>
+        </select>
+      </div>
+    </div>
+
+    <div id="dictPills"></div>
+
+    <div class="collageControlRow">
+      <input id="collageFilesInput" type="file" accept="image/*" multiple hidden>
+      <button id="addCollageFilesBtn" class="good">画像を一括追加</button>
+      <span class="small" id="fileAddHint">ボタンを押して画像を選択</span>
+      <button id="clearCollageBtn" class="danger">全部削除</button>
+      <button id="saveCollagePngBtn" class="main">PNG保存</button>
+      <button id="shareCollagePngBtn" class="secondary">iPhoneで保存/共有</button>
+      <select id="sortSelect">
+        <option value="manual">手動順</option>
+        <option value="member_rarity">メンバー序列 ＞ レアリティ</option>
+        <option value="rarity_member">レアリティ ＞ メンバー序列</option>
+        <option value="rarity_item_member">レアリティ ＞ 商品名 ＞ メンバー序列</option>
+        <option value="item_rarity_member">商品名 ＞ レアリティ ＞ メンバー序列</option>
+      </select>
+      <button id="applySortBtn" class="secondary">ソート適用</button>
+      <button id="saveJsonBtn" class="secondary">データ保存</button>
+      <button id="loadJsonBtn" class="secondary">データ読込</button>
+      <button id="makeTradeTextBtn" class="secondary" type="button" onclick="showTradeText()">交換募集テキスト作成</button>
+      <input id="jsonFileInput" type="file" accept=".json,application/json" hidden>
+    </div>
+
+    <div id="tradeTextPanel" class="tradeTextPanel hidden">
+      <div class="tradeTextHeader">
+        <strong>交換募集用テキスト</strong>
+        <div class="tradeTextHeaderControls">
+          <select id="tradeNameModeSelect">
+            <option value="full">フルネーム</option>
+            <option value="family">苗字のみ</option>
+          </select>
+          <button id="copyTradeTextBtn" class="secondary" type="button" onclick="copyTradeText()">コピー</button>
+        </div>
+      </div>
+      <textarea id="tradeTextOutput" readonly></textarea>
+      <p class="small">同じ商品名・レアリティごとにまとめて、メンバー名を見やすく並べます。フルネーム/苗字のみを切り替えでき、SP版も名前に自動反映します。</p>
+    </div>
+
+    <div id="collageEditorGrid" class="collageEditorGrid"></div>
+
+    <div id="collageCaptureArea" class="collageCaptureArea">
+      <div class="collageHeader">
+        <img id="collageHeaderImage" class="collageHeaderImage hidden" alt="タイトル画像">
+        <h2 id="collageViewTitle">モバガチャ コラージュ</h2>
+        <p id="collageViewSub"></p>
+      </div>
+      <div id="collagePreviewGrid" class="collagePreviewGrid"></div>
+    </div>
+  </section>
+</div>
+
+<div id="imageModal" class="imageModal hidden">
+  <div class="imageModalInner">
+    <div class="imageModalTitle">画像ができました</div>
+    <div class="imageModalText">画像を長押しして「写真に保存」または「画像を保存」を選んでください。</div>
+    <img id="modalImage" alt="保存用画像">
+    <button id="closeImageModal" class="secondary">閉じる</button>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/html2canvas@1.4.1/dist/html2canvas.min.js"></script>
+<script>
+const baseDictionaries = {
+  morning:["野中美希","小田さくら","岡村ほまれ","山﨑愛生","櫻井梨央","井上春華","弓桁朱琴","杉原明紗","安田美結","鈴木もあ","石川華望"],
+  angerme:["伊勢鈴蘭","為永幸音","橋迫鈴","川名凜","松本わかな","平山遊季","下井谷幸穂","後藤花","長野桃羽"],
+  juice:["段原瑠々","井上玲音","工藤由愛","松永里愛","有澤一華","入江里咲","江端妃咲","石山咲良","遠藤彩加里","川嶋美楓","林仁愛"],
+  tsubaki:["谷本安美","小野瑞歩","小野田紗栞","秋山眞緒","河西結心","福田真琳","豫風瑠乃","石井泉羽","村田結生","土居楓奏","西村乙輝"],
+  beyond:["西田汐里","江口紗耶","前田こころ","岡村美波","清野桃々姫","平井美葉","小林萌花","里吉うたの","小島はな","大坪茉乃","杉山結菜"],
+  ocha:["斉藤円香","広本瑠璃","米村姫良々","窪田七海","中山夏月姫","西﨑美空","北原もも","筒井澪心"],
+  rosy:["橋田歩果","吉田姫杷","小野田華凜","村越彩菜","植村葉純","松原ユリヤ","島川波菜","上村麗菜","相馬優芽"]
+};
+const ogDictionaries = {
+  morning:["譜久村聖","生田衣梨奈","石田亜佑美","牧野真莉愛","羽賀朱音","横山玲奈","北川莉央"],
+  angerme:["竹内朱莉","川村文乃","佐々木莉佳子","上國料萌衣"],
+  juice:["植村あかり"],
+  tsubaki:["山岸理子","新沼希空","岸本ゆめの","浅倉樹々","八木栞"],
+  beyond:["一岡伶奈","島倉りか","高瀬くるみ","山﨑夢羽"],
+  ocha:["石栗奏美","田代すみれ"],
+  rosy:[]
+};
+ogDictionaries.all = Object.values(ogDictionaries).flat();
+
+const mlineMembers = [
+  "中澤裕子","飯田圭織","保田圭","矢口真里","石川梨華","辻󠄀希美",
+  "高橋愛","田中れいな","須藤茉麻","熊井友理奈","矢島舞美","中島早貴",
+  "鈴木愛理","譜久村聖","竹内朱莉","勝田里奈","飯窪春菜","石田亜佑美",
+  "佐藤優樹","宮崎由加","宮本佳林","植村あかり","佐々木莉佳子",
+  "稲場愛香","森戸知沙希","小関舞","山岸理子","浅倉樹々"
+];
+
+const dictionaries = {
+  ...baseDictionaries,
+  all:Object.values(baseDictionaries).flat(),
+  mline:mlineMembers,
+  all_mline:[...Object.values(baseDictionaries).flat(), ...mlineMembers]
+};
+ogDictionaries.mline = [];
+ogDictionaries.all_mline = Object.values(ogDictionaries).flat();
+
+const fullOrderDictionaries = {
+  // OGを含める場合の序列。2023年時点で在籍していたメンバーを当時の並びに近い形で統合し、
+  // その後に2024年以降の新加入メンバーを続ける。
+  morning:[
+    "譜久村聖","生田衣梨奈","石田亜佑美","小田さくら","野中美希","牧野真莉愛","羽賀朱音","横山玲奈",
+    "北川莉央","岡村ほまれ","山﨑愛生","櫻井梨央","井上春華","弓桁朱琴",
+    "杉原明紗","安田美結","鈴木もあ","石川華望"
+  ],
+  angerme:[
+    "竹内朱莉","川村文乃","佐々木莉佳子","上國料萌衣","伊勢鈴蘭","橋迫鈴","川名凜","為永幸音",
+    "松本わかな","平山遊季","下井谷幸穂","後藤花","長野桃羽"
+  ],
+  juice:[
+    "植村あかり","段原瑠々","井上玲音","工藤由愛","松永里愛","有澤一華","入江里咲","江端妃咲",
+    "石山咲良","遠藤彩加里","川嶋美楓","林仁愛"
+  ],
+  tsubaki:[
+    "山岸理子","新沼希空","谷本安美","岸本ゆめの","浅倉樹々","小野瑞歩","小野田紗栞","秋山眞緒",
+    "河西結心","八木栞","福田真琳","豫風瑠乃","石井泉羽","村田結生","土居楓奏","西村乙輝"
+  ],
+  beyond:[
+    "一岡伶奈","島倉りか","西田汐里","江口紗耶","高瀬くるみ","前田こころ","山﨑夢羽","岡村美波",
+    "清野桃々姫","平井美葉","小林萌花","里吉うたの","小島はな","大坪茉乃","杉山結菜"
+  ],
+  ocha:[
+    "斉藤円香","広本瑠璃","石栗奏美","米村姫良々","窪田七海","田代すみれ","中山夏月姫",
+    "西﨑美空","北原もも","筒井澪心"
+  ],
+  rosy:[...baseDictionaries.rosy],
+  mline:[...mlineMembers]
+};
+fullOrderDictionaries.all = [
+  ...fullOrderDictionaries.morning,
+  ...fullOrderDictionaries.angerme,
+  ...fullOrderDictionaries.juice,
+  ...fullOrderDictionaries.tsubaki,
+  ...fullOrderDictionaries.beyond,
+  ...fullOrderDictionaries.ocha,
+  ...fullOrderDictionaries.rosy
+];
+fullOrderDictionaries.all_mline = [...fullOrderDictionaries.all, ...mlineMembers];
+
+const aliases = {
+  "西崎美空":"西﨑美空","西崎":"西﨑美空","西﨑":"西﨑美空",
+  "山崎愛生":"山﨑愛生","山崎":"山﨑愛生","山﨑":"山﨑愛生",
+  "川名凛":"川名凜","上国料萌衣":"上國料萌衣","斎藤円香":"斉藤円香",
+  "小野田華凛":"小野田華凜","秋山真緒":"秋山眞緒",
+  "辻希美":"辻󠄀希美","辻ちゃん":"辻󠄀希美","フクちゃん":"譜久村聖",
+  "まーちゃん":"佐藤優樹","まなかん":"稲場愛香","りかこ":"佐々木莉佳子"
+};
+
+let collageItems = [];
+try {
+  collageItems = JSON.parse(localStorage.getItem("collageOnlyItems_v1") || "[]");
+} catch(e) {
+  collageItems = [];
+}
+let currentDict = localStorage.getItem("collageOnlyDict_v1") || "all";
+let includeOg = localStorage.getItem("collageOnlyIncludeOg_v1") === "true";
+let headerImageData = localStorage.getItem("collageOnlyHeaderImage_v1") || "";
+
+function $(id){ return document.getElementById(id); }
+function uid(){return "id_"+Date.now().toString(36)+"_"+Math.random().toString(36).slice(2,8);}
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;","\"":"&quot;","'":"&#39;"}[m]));}
+function normalizeName(name){const n=(name||"").trim(); return aliases[n]||n;}
+function uniqueList(list){return [...new Set(list.filter(Boolean))];}
+function currentMembers(){
+  if(includeOg && fullOrderDictionaries[currentDict]){
+    return uniqueList(fullOrderDictionaries[currentDict]);
+  }
+  return uniqueList(dictionaries[currentDict] || []);
+}
+function fileToDataURL(file){
+  return new Promise((resolve,reject)=>{
+    if(!file){ resolve(""); return; }
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+function canvasToBlob(canvas){
+  return new Promise(resolve=>canvas.toBlob(resolve, "image/png"));
+}
+function downloadBlob(content, filename, type){
+  const blob = new Blob([content], {type});
+  const a = document.createElement("a");
+  a.href = URL.createObjectURL(blob);
+  a.download = filename;
+  a.click();
+  URL.revokeObjectURL(a.href);
+}
+
+function saveState(){
+  try{ localStorage.setItem("collageOnlyItems_v1", JSON.stringify(collageItems)); }catch(err){ console.warn(err); }
+  try{
+    localStorage.setItem("collageOnlyTitle_v1", $("collageTitleInput").value || "");
+    localStorage.setItem("collageOnlySub_v1", $("collageSubInput").value || "");
+    localStorage.setItem("collageOnlyDict_v1", currentDict);
+    localStorage.setItem("collageOnlyIncludeOg_v1", includeOg ? "true" : "false");
+    localStorage.setItem("collageOnlyTheme_v1", $("themeSelect").value);
+    localStorage.setItem("collageOnlyColumns_v1", $("columnsSelect").value);
+    const fitEl = $("imageFitSelect");
+    if(fitEl) localStorage.setItem("collageOnlyImageFit_v1", fitEl.value);
+    localStorage.setItem("collageOnlySort_v1", $("sortSelect").value);
+    try{
+      if(headerImageData){
+        localStorage.setItem("collageOnlyHeaderImage_v1", headerImageData);
+      }else{
+        localStorage.removeItem("collageOnlyHeaderImage_v1");
+      }
+    }catch(err){
+      console.warn("タイトル画像が大きく、ブラウザ保存容量を超えた可能性があります。表示は続行します。", err);
+    }
+  }catch(err){}
+}
+function loadState(){
+  $("collageTitleInput").value = localStorage.getItem("collageOnlyTitle_v1") || "モバガチャ コラージュ";
+  $("collageSubInput").value = localStorage.getItem("collageOnlySub_v1") || "";
+  $("themeSelect").value = localStorage.getItem("collageOnlyTheme_v1") || "#d71920";
+  $("columnsSelect").value = localStorage.getItem("collageOnlyColumns_v1") || "4";
+  if($("imageFitSelect")) $("imageFitSelect").value = localStorage.getItem("collageOnlyImageFit_v1") || "contain";
+  $("sortSelect").value = localStorage.getItem("collageOnlySort_v1") || "manual";
+  $("dictionarySelect").value = currentDict;
+  $("includeOgCheck").checked = includeOg;
+}
+function updateDictionaryUI(){
+  $("dictPills").innerHTML = currentMembers().map(m=>`<span class="pill">${esc(m)}</span>`).join("");
+}
+function memberOptions(selected){
+  const members = currentMembers();
+  const safeSelected = selected || "";
+  let opts = `<option value="">未設定</option>`;
+  if(safeSelected && !members.includes(safeSelected)){
+    opts += `<option selected>${esc(safeSelected)}</option>`;
+  }
+  opts += members.map(m=>`<option ${safeSelected===m?"selected":""}>${esc(m)}</option>`).join("");
+  opts += `<option value="__custom__">直接入力...</option>`;
+  return opts;
+}
+function currentImageFit(){
+  const el = $("imageFitSelect");
+  return el ? el.value : "contain";
+}
+function badgeClass(rank){
+  const cls = (rank||"").replace(/[^A-Za-zＡ-ＺA-Da-dSRN]/g,"").toUpperCase().slice(0,2);
+  return cls || "R";
+}
+
+
+async function chooseHeaderImage(){
+  const input = $("headerImageInput");
+  const file = input && input.files ? input.files[0] : null;
+  if(!file) return;
+  try{
+    headerImageData = await fileToDataURL(file);
+    if(input) input.value = "";
+    if($("headerImageHint")) $("headerImageHint").textContent = "設定済み：タイトル画像を使用";
+    saveState();
+    render();
+  }catch(err){
+    alert("タイトル画像の読み込みに失敗しました。");
+  }
+}
+function clearHeaderImage(){
+  headerImageData = "";
+  if($("headerImageInput")) $("headerImageInput").value = "";
+  if($("headerImageHint")) $("headerImageHint").textContent = "未設定：通常のタイトル/サブタイトルを表示";
+  saveState();
+  render();
+}
+
+async function addFiles(){
+  const input = $("collageFilesInput");
+  const files = Array.from(input.files || []);
+  if(!files.length){
+    $("fileAddHint").textContent = "画像が選択されていません";
+    return;
+  }
+
+  const remaining = Math.max(0, 36 - collageItems.length);
+  const target = files.slice(0, remaining);
+  let added = 0;
+  let failed = 0;
+  $("fileAddHint").textContent = "読み込み中...";
+
+  for(const file of target){
+    try{
+      const dataUrl = await fileToDataURL(file);
+      if(dataUrl){
+        collageItems.push({id:uid(), image:dataUrl, rank:"SR", member:"", note:"", isSp:false});
+        added++;
+      }else{
+        failed++;
+      }
+    }catch(err){
+      failed++;
+      console.warn("画像読み込み失敗:", file.name, err);
+    }
+  }
+
+  input.value = "";
+  $("fileAddHint").textContent = failed ? `${added}枚追加 / ${failed}枚失敗` : `${added}枚追加しました`;
+  if(files.length > remaining) alert("一度に登録できるのは最大36件までです。");
+  saveState();
+  render();
+  setTimeout(render, 120);
+}
+
+function rarityWeight(rank){
+  const r = String(rank || "").toUpperCase();
+  if(r === "SR") return 0;
+  if(r === "R") return 1;
+  if(r === "N") return 2;
+  if(r === "その他") return 3;
+  return 9;
+}
+const naturalCollator = new Intl.Collator("ja-JP", {numeric:true, sensitivity:"base"});
+function memberWeight(name){
+  const members = currentMembers();
+  const i = members.indexOf(name);
+  return i >= 0 ? i : 9999;
+}
+function itemNameCompare(a,b){
+  const av = String(a.note || "");
+  const bv = String(b.note || "");
+  // 空欄は後ろへ
+  if(!av && bv) return 1;
+  if(av && !bv) return -1;
+  return naturalCollator.compare(av, bv);
+}
+function applyCollageSort(){
+  const mode = $("sortSelect").value;
+  if(mode === "manual") return;
+  collageItems.sort((a,b)=>{
+    if(mode === "member_rarity"){
+      return memberWeight(a.member) - memberWeight(b.member)
+        || rarityWeight(a.rank) - rarityWeight(b.rank)
+        || itemNameCompare(a,b)
+        || spWeight(a) - spWeight(b);
+    }
+    if(mode === "rarity_member"){
+      return rarityWeight(a.rank) - rarityWeight(b.rank)
+        || memberWeight(a.member) - memberWeight(b.member)
+        || itemNameCompare(a,b)
+        || spWeight(a) - spWeight(b);
+    }
+    if(mode === "rarity_item_member"){
+      return rarityWeight(a.rank) - rarityWeight(b.rank)
+        || itemNameCompare(a,b)
+        || memberWeight(a.member) - memberWeight(b.member)
+        || spWeight(a) - spWeight(b);
+    }
+    if(mode === "item_rarity_member"){
+      return itemNameCompare(a,b)
+        || rarityWeight(a.rank) - rarityWeight(b.rank)
+        || memberWeight(a.member) - memberWeight(b.member)
+        || spWeight(a) - spWeight(b);
+    }
+    return 0;
+  });
+  saveState();
+  render();
+}
+function moveItem(id, delta){
+  const index = collageItems.findIndex(x=>x.id===id);
+  if(index < 0) return;
+  const newIndex = index + delta;
+  if(newIndex < 0 || newIndex >= collageItems.length) return;
+  const [item] = collageItems.splice(index,1);
+  collageItems.splice(newIndex,0,item);
+  saveState();
+  render();
+}
+function render(){
+  document.documentElement.style.setProperty("--main", $("themeSelect").value);
+  $("collageViewTitle").textContent = $("collageTitleInput").value || "モバガチャ コラージュ";
+  $("collageViewSub").textContent = $("collageSubInput").value || "";
+  const headerImg = $("collageHeaderImage");
+  const headerBox = headerImg ? headerImg.closest(".collageHeader") : null;
+  if(headerImg && headerBox){
+    if(headerImageData){
+      headerImg.src = headerImageData;
+      headerImg.classList.remove("hidden");
+      headerBox.classList.add("using-image");
+      if($("headerImageHint")) $("headerImageHint").textContent = "設定済み：タイトル画像を使用";
+    }else{
+      headerImg.removeAttribute("src");
+      headerImg.classList.add("hidden");
+      headerBox.classList.remove("using-image");
+      if($("headerImageHint")) $("headerImageHint").textContent = "未設定：通常のタイトル/サブタイトルを表示";
+    }
+  }
+  $("collagePreviewGrid").style.gridTemplateColumns = `repeat(${$("columnsSelect").value}, minmax(0, 1fr))`;
+  updateDictionaryUI();
+
+  $("collageEditorGrid").innerHTML = collageItems.length ? collageItems.map((it, i)=>`
+    <div class="collageEditorCard">
+      <div class="collageEditorTop">
+        <span class="collageIndex">${i+1} / ${collageItems.length}</span>
+        <div class="collageMiniBtns">
+          <button class="secondary" data-up="${it.id}">↑</button>
+          <button class="secondary" data-down="${it.id}">↓</button>
+          <button class="danger" data-remove="${it.id}">削除</button>
+        </div>
+      </div>
+      <div class="collageEditorPreview"><img src="${it.image}" alt=""></div>
+      <div class="row2">
+        <div>
+          <label>レア</label>
+          <select data-rank="${it.id}">
+            <option ${it.rank==="SR"?"selected":""}>SR</option>
+            <option ${it.rank==="R"?"selected":""}>R</option>
+            <option ${it.rank==="N"?"selected":""}>N</option>
+            <option ${it.rank==="その他"?"selected":""}>その他</option>
+          </select>
+        </div>
+        <div>
+          <label>メンバー</label>
+          <select data-member="${it.id}">${memberOptions(it.member)}</select>
+        </div>
+      </div>
+      <div class="spOptionRow">
+        <label class="checkLabel"><input type="checkbox" data-sp="${it.id}" ${it.isSp ? "checked" : ""}> SP版にする</label>
+      </div>
+      <label>商品名・補足 任意</label>
+      <input data-note="${it.id}" value="${esc(it.note || "")}" placeholder="例: アクキー / アクキー2 / ダントツ衣装">
+    </div>
+  `).join("") : `<div class="emptyPreview">画像を追加すると、ここに編集カードが表示されます。</div>`;
+
+  $("collagePreviewGrid").innerHTML = collageItems.length ? collageItems.map(it=>`
+    <div class="collageItemCard">
+      <div class="collageItemImageWrap">
+        <img src="${it.image}" alt="">
+      </div>
+      <div class="collageItemBody">
+        <div class="collageItemMeta">
+          ${previewMemberNameHTML(it)}
+          ${it.rank ? `<span class="badge collageItemBadge ${badgeClass(it.rank)}">${esc(it.rank)}</span>` : ``}
+        </div>
+        <div class="collageItemNote">${esc(it.note || " ")}</div>
+      </div>
+    </div>
+  `).join("") : `<div class="emptyPreview">まだ画像がありません。上の「画像を一括追加」から画像を選択してください。</div>`;
+
+  document.querySelectorAll("[data-remove]").forEach(btn=>btn.onclick=e=>{
+    collageItems = collageItems.filter(x=>x.id !== e.target.dataset.remove);
+    saveState(); render();
+  });
+  document.querySelectorAll("[data-up]").forEach(btn=>btn.onclick=e=>moveItem(e.target.dataset.up, -1));
+  document.querySelectorAll("[data-down]").forEach(btn=>btn.onclick=e=>moveItem(e.target.dataset.down, 1));
+  document.querySelectorAll("[data-rank]").forEach(sel=>sel.onchange=e=>{
+    const it = collageItems.find(x=>x.id===e.target.dataset.rank);
+    if(it){ it.rank = e.target.value; saveState(); render(); }
+  });
+  document.querySelectorAll("[data-member]").forEach(sel=>sel.onchange=e=>{
+    const it = collageItems.find(x=>x.id===e.target.dataset.member);
+    if(!it) return;
+    if(e.target.value === "__custom__"){
+      const custom = prompt("メンバー名を入力してください", it.member || "");
+      if(custom !== null) it.member = normalizeName(custom.trim());
+    }else{
+      it.member = normalizeName(e.target.value);
+    }
+    saveState(); render();
+  });
+  document.querySelectorAll("[data-sp]").forEach(inp=>inp.onchange=e=>{
+    const it = collageItems.find(x=>x.id===e.target.dataset.sp);
+    if(it){ it.isSp = !!e.target.checked; saveState(); render(); }
+  });
+  document.querySelectorAll("[data-note]").forEach(inp=>inp.onchange=e=>{
+    const it = collageItems.find(x=>x.id===e.target.dataset.note);
+    if(it){ it.note = e.target.value; saveState(); render(); }
+  });
+}
+
+const familyNameMap = {
+  // モーニング娘。
+  "譜久村聖":"譜久村","生田衣梨奈":"生田","石田亜佑美":"石田","小田さくら":"小田","野中美希":"野中","牧野真莉愛":"牧野","羽賀朱音":"羽賀","横山玲奈":"横山","北川莉央":"北川","岡村ほまれ":"岡村","山﨑愛生":"山﨑","櫻井梨央":"櫻井","井上春華":"井上","弓桁朱琴":"弓桁","杉原明紗":"杉原","安田美結":"安田","鈴木もあ":"鈴木","石川華望":"石川",
+  // アンジュルム
+  "竹内朱莉":"竹内","川村文乃":"川村","佐々木莉佳子":"佐々木","上國料萌衣":"上國料","伊勢鈴蘭":"伊勢","橋迫鈴":"橋迫","川名凜":"川名","為永幸音":"為永","松本わかな":"松本","平山遊季":"平山","下井谷幸穂":"下井谷","後藤花":"後藤","長野桃羽":"長野",
+  // Juice=Juice
+  "宮崎由加":"宮崎","植村あかり":"植村","段原瑠々":"段原","井上玲音":"井上","工藤由愛":"工藤","松永里愛":"松永","有澤一華":"有澤","入江里咲":"入江","江端妃咲":"江端","石山咲良":"石山","遠藤彩加里":"遠藤","川嶋美楓":"川嶋","林仁愛":"林",
+  // つばきファクトリー
+  "山岸理子":"山岸","新沼希空":"新沼","谷本安美":"谷本","岸本ゆめの":"岸本","浅倉樹々":"浅倉","小野瑞歩":"小野","小野田紗栞":"小野田","秋山眞緒":"秋山","河西結心":"河西","八木栞":"八木","福田真琳":"福田","豫風瑠乃":"豫風","石井泉羽":"石井","村田結生":"村田","土居楓奏":"土居","西村乙輝":"西村",
+  // BEYOOOOONDS
+  "一岡伶奈":"一岡","島倉りか":"島倉","西田汐里":"西田","江口紗耶":"江口","高瀬くるみ":"高瀬","前田こころ":"前田","山﨑夢羽":"山﨑","岡村美波":"岡村","清野桃々姫":"清野","平井美葉":"平井","小林萌花":"小林","里吉うたの":"里吉","小島はな":"小島","大坪茉乃":"大坪","杉山結菜":"杉山",
+  // OCHA NORMA
+  "斉藤円香":"斉藤","広本瑠璃":"広本","石栗奏美":"石栗","米村姫良々":"米村","窪田七海":"窪田","田代すみれ":"田代","中山夏月姫":"中山","西﨑美空":"西﨑","北原もも":"北原","筒井澪心":"筒井",
+  // ロージークロニクル
+  "橋田歩果":"橋田","吉田姫杷":"吉田","小野田華凜":"小野田","村越彩菜":"村越","植村葉純":"植村","松原ユリヤ":"松原","島川波菜":"島川","上村麗菜":"上村","相馬優芽":"相馬",
+  // M-line
+  "中澤裕子":"中澤","飯田圭織":"飯田","保田圭":"保田","矢口真里":"矢口","石川梨華":"石川","辻󠄀希美":"辻󠄀","高橋愛":"高橋","田中れいな":"田中","須藤茉麻":"須藤","熊井友理奈":"熊井","矢島舞美":"矢島","中島早貴":"中島","鈴木愛理":"鈴木","勝田里奈":"勝田","飯窪春菜":"飯窪","佐藤優樹":"佐藤","宮本佳林":"宮本","稲場愛香":"稲場","森戸知沙希":"森戸","小関舞":"小関"
+};
+function familyNameOnly(name){
+  const full = normalizeName((name || "").trim());
+  if(!full) return "未設定";
+  if(familyNameMap[full]) return familyNameMap[full];
+  // 手入力で姓名の間にスペースがある場合の保険
+  if(full.includes(" ")) return full.split(/\s+/)[0];
+  if(full.includes("　")) return full.split("　")[0];
+  // 対応表に無い名前は無理に切らず、そのまま返す
+  return full;
+}
+function memberDisplayBase(name, mode){
+  const full = normalizeName((name || "").trim());
+  if(!full) return "未設定";
+  if(mode === "family") return familyNameOnly(full);
+  return full;
+}
+function displayMemberName(itemOrName, forceMode){
+  const modeEl = $("tradeNameModeSelect");
+  const mode = forceMode || ((modeEl && modeEl.value) ? modeEl.value : "full");
+  if(typeof itemOrName === "string"){
+    return memberDisplayBase(itemOrName, mode);
+  }
+  const item = itemOrName || {};
+  const base = memberDisplayBase(item.member || "", mode);
+  return item.isSp ? `${base}SP` : base;
+}
+function previewMemberNameHTML(item){
+  const base = esc(memberDisplayBase(item.member || "", "full"));
+  return `<div class="memberLabelWrap"><div class="collageItemMember">${base || " "}</div>${item.isSp ? `<span class="spChip">SP</span>` : ``}</div>`;
+}
+function spWeight(item){
+  return item && item.isSp ? 1 : 0;
+}
+function buildTradeText(){
+  if(!collageItems.length){
+    return "まだアイテムが登録されていません。";
+  }
+
+  const sorted = [...collageItems].sort((a,b)=>
+    rarityWeight(a.rank) - rarityWeight(b.rank)
+    || itemNameCompare(a,b)
+    || memberWeight(a.member) - memberWeight(b.member)
+    || spWeight(a) - spWeight(b)
+  );
+
+  const groups = new Map();
+  for(const it of sorted){
+    const rank = it.rank || "未設定";
+    const itemName = (it.note || "商品名未設定").trim() || "商品名未設定";
+    const key = `${rank}||${itemName}`;
+    if(!groups.has(key)){
+      groups.set(key, {rank, itemName, members:[]});
+    }
+    groups.get(key).members.push(displayMemberName(it));
+  }
+
+  const lines = [];
+  const title = ($("collageTitleInput").value || "").trim();
+  if(title) lines.push(`【${title}】`);
+  lines.push("交換募集リスト");
+  lines.push("");
+
+  for(const group of groups.values()){
+    const memberCounts = new Map();
+    for(const member of group.members){
+      memberCounts.set(member, (memberCounts.get(member) || 0) + 1);
+    }
+
+    const membersText = [...memberCounts.entries()]
+      .map(([name, count]) => count > 1 ? `${name}×${count}` : name)
+      .join("、");
+
+    lines.push(`■ ${group.rank}｜${group.itemName}`);
+    lines.push(`　${membersText}`);
+    lines.push("");
+  }
+
+  lines.push("気になるものがありましたらお気軽にお声がけください。");
+  return lines.join("\n").trim();
+}
+function showTradeText(){
+  const output = $("tradeTextOutput");
+  const panel = $("tradeTextPanel");
+  if(!output || !panel){
+    alert("テキスト出力欄が見つかりません。");
+    return;
+  }
+  output.value = buildTradeText();
+  panel.classList.remove("hidden");
+  setTimeout(()=>{
+    output.focus();
+    output.select();
+    panel.scrollIntoView({behavior:"smooth", block:"nearest"});
+  }, 50);
+}
+async function copyTradeText(){
+  const output = $("tradeTextOutput");
+  const btn = $("copyTradeTextBtn");
+  const text = buildTradeText();
+  if(output) output.value = text;
+  try{
+    await navigator.clipboard.writeText(text);
+    if(btn){
+      btn.textContent = "コピー済み";
+      setTimeout(()=>btn.textContent="コピー", 1200);
+    }
+  }catch(e){
+    if(output){
+      output.focus();
+      output.select();
+    }
+    alert("自動コピーできませんでした。選択されたテキストを手動でコピーしてください。");
+  }
+}
+function waitForImageReady(img){
+  return new Promise(resolve=>{
+    if(img.complete && img.naturalWidth) return resolve();
+    img.onload = () => resolve();
+    img.onerror = () => resolve();
+  });
+}
+async function prepareExportImages(area){
+  const imgs = [...area.querySelectorAll(".collageItemImageWrap img")];
+  await Promise.all(imgs.map(waitForImageReady));
+  imgs.forEach(img=>{
+    img.classList.remove("img-landscape","img-portrait","img-square");
+    const w = img.naturalWidth || 1;
+    const h = img.naturalHeight || 1;
+    if(Math.abs(w - h) <= 2){
+      img.classList.add("img-square");
+    }else if(w > h){
+      img.classList.add("img-landscape");
+    }else{
+      img.classList.add("img-portrait");
+    }
+  });
+}
+async function makeCanvas(){
+  const area = $("collageCaptureArea");
+  area.classList.remove("export-contain", "export-cover");
+  area.classList.add(currentImageFit() === "contain" ? "export-contain" : "export-cover");
+  await prepareExportImages(area);
+  await new Promise(resolve => requestAnimationFrame(()=>requestAnimationFrame(resolve)));
+  const canvas = await html2canvas(area,{scale:2,backgroundColor:"#fffdf8",windowWidth:900});
+  area.classList.remove("export-contain", "export-cover");
+  return canvas;
+}
+function showImageModal(dataUrl){
+  $("modalImage").src = dataUrl;
+  $("imageModal").classList.remove("hidden");
+}
+async function shareOrShowImage(){
+  let preOpened = null;
+  try{
+    preOpened = window.open("", "_blank");
+    if(preOpened){
+      preOpened.document.write("<!doctype html><html><head><meta name='viewport' content='width=device-width,initial-scale=1'><title>画像作成中...</title></head><body style='font-family:sans-serif;padding:20px'>画像を作成中です...</body></html>");
+      preOpened.document.close();
+    }
+  }catch(e){ preOpened = null; }
+
+  try{
+    const canvas = await makeCanvas();
+    const dataUrl = canvas.toDataURL("image/png");
+    const blob = await canvasToBlob(canvas);
+    const file = new File([blob], "mobagacha_collage.png", {type:"image/png"});
+
+    if(navigator.canShare && navigator.canShare({files:[file]}) && navigator.share){
+      try{
+        await navigator.share({files:[file], title:$("collageTitleInput").value || "モバガチャ コラージュ", text:$("collageSubInput").value || ""});
+        if(preOpened && !preOpened.closed) preOpened.close();
+        return;
+      }catch(shareErr){}
+    }
+
+    const htmlForImage = `<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>保存用画像</title><style>body{margin:0;padding:14px;background:#fffdf8;font-family:-apple-system,BlinkMacSystemFont,sans-serif;color:#1f2933}p{font-weight:700;line-height:1.6;color:#607080}img{width:100%;height:auto;border-radius:14px;border:1px solid #ddd4c7}
+.tradeTextPanel{
+  background:#f8fafc;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  padding:12px;
+  margin:0 0 14px;
+}
+.tradeTextHeader{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
+  gap:10px;
+  margin-bottom:8px;
+}
+.tradeTextHeader strong{
+  font-size:16px;
+}
+#tradeTextOutput{
+  display:block;
+  width:100%;
+  min-height:220px;
+  background:#fff;
+  font-family:ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+  line-height:1.6;
+  white-space:pre;
+}
+
+
+.headerImageTools{
+  margin:12px 0 16px;
+  padding:12px;
+  border:1.5px solid #d7dde6;
+  border-radius:18px;
+  background:#f8fafc;
+}
+.headerImageButtons{
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px;
+}
+#headerImageHint{
+  align-self:center;
+}
+.collageHeaderImage{
+  display:block;
+  width:100%;
+  max-height:170px;
+  object-fit:contain;
+  margin:0 auto;
+  border-radius:14px;
+}
+.collageHeader.using-image{
+  padding:10px;
+}
+.collageHeader.using-image h2,
+.collageHeader.using-image p{
+  display:none;
+}
+@media (max-width:720px){
+  .headerImageButtons button{
+    flex:1 1 100%;
+  }
+  .collageHeaderImage{
+    max-height:130px;
+  }
+}
+
+
+.collageItemMeta{
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:8px;
+}
+.collageItemMeta .collageItemMember{
+  min-width:0;
+  flex:1 1 auto;
+}
+
+
+.collageItemImageWrap .collageItemBadge{
+  display:none !important;
+}
+
+
+.tradeTextHeaderControls{
+  display:flex;
+  align-items:center;
+  gap:8px;
+}
+.tradeTextHeaderControls select{
+  min-height:38px;
+  width:auto;
+  min-width:130px;
+  padding:8px 10px;
+}
+@media (max-width:720px){
+  .tradeTextHeader{
+    align-items:flex-start;
+  }
+  .tradeTextHeaderControls{
+    width:100%;
+  }
+  .tradeTextHeaderControls select,
+  .tradeTextHeaderControls button{
+    flex:1 1 0;
+  }
+}
+
+
+.spOptionRow{
+  margin-top:8px;
+}
+.spOptionRow .checkLabel{
+  margin-top:0;
+  font-size:12px;
+}
+.spOptionRow .checkLabel input{
+  width:18px;
+  height:18px;
+  min-height:18px;
+}
+.memberLabelWrap{
+  display:flex;
+  align-items:center;
+  gap:6px;
+  flex-wrap:wrap;
+}
+.memberLabelWrap .collageItemMember{
+  margin-bottom:0;
+}
+.spChip{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  min-width:34px;
+  height:22px;
+  padding:0 8px;
+  border-radius:999px;
+  background:var(--purple);
+  color:#fff;
+  font-size:11px;
+  font-weight:900;
+  line-height:1;
+}
+
+</style></head><body><p>画像を長押しして「写真に保存」または「画像を保存」を選んでください。</p><img src="${dataUrl}" alt="保存用画像"></body></html>`;
+    if(preOpened && !preOpened.closed){
+      preOpened.document.open();
+      preOpened.document.write(htmlForImage);
+      preOpened.document.close();
+    }else{
+      showImageModal(dataUrl);
+    }
+  }catch(err){
+    alert("保存/共有に失敗しました。");
+    console.error(err);
+  }
+}
+
+document.addEventListener("DOMContentLoaded", ()=>{
+  loadState();
+
+  $("addCollageFilesBtn").addEventListener("click", ()=>{
+    $("collageFilesInput").click();
+  });
+  $("collageFilesInput").addEventListener("change", addFiles);
+  $("selectHeaderImageBtn").addEventListener("click", ()=>$("headerImageInput").click());
+  $("headerImageInput").addEventListener("change", chooseHeaderImage);
+  $("clearHeaderImageBtn").addEventListener("click", clearHeaderImage);
+  $("clearCollageBtn").addEventListener("click", ()=>{
+    if(confirm("コラージュ用の画像を全部削除しますか？")){
+      collageItems = [];
+      saveState();
+      render();
+    }
+  });
+  $("saveCollagePngBtn").addEventListener("click", async()=>{
+    const canvas = await makeCanvas();
+    const a = document.createElement("a");
+    a.href = canvas.toDataURL("image/png");
+    a.download = "mobagacha_collage.png";
+    a.click();
+  });
+  $("shareCollagePngBtn").addEventListener("click", shareOrShowImage);
+  $("saveJsonBtn").addEventListener("click", ()=>{
+    downloadBlob(JSON.stringify({
+      title:$("collageTitleInput").value,
+      subtitle:$("collageSubInput").value,
+      headerImage:headerImageData,
+      dictionary:currentDict,
+      includeOg,
+      theme:$("themeSelect").value,
+      columns:$("columnsSelect").value,
+      imageFit:currentImageFit(),
+      sort:$("sortSelect").value,
+      items:collageItems
+    }, null, 2), "mobagacha_collage_data.json", "application/json");
+  });
+  $("loadJsonBtn").addEventListener("click", ()=>$("jsonFileInput").click());
+  $("jsonFileInput").addEventListener("change", async e=>{
+    const file = e.target.files[0];
+    if(!file) return;
+    try{
+      const data = JSON.parse(await file.text());
+      $("collageTitleInput").value = data.title || "モバガチャ コラージュ";
+      $("collageSubInput").value = data.subtitle || "";
+      headerImageData = data.headerImage || "";
+      currentDict = data.dictionary || "all";
+      includeOg = !!data.includeOg;
+      $("dictionarySelect").value = currentDict;
+      $("includeOgCheck").checked = includeOg;
+      $("themeSelect").value = data.theme || "#d71920";
+      $("columnsSelect").value = data.columns || "4";
+      if($("imageFitSelect")) $("imageFitSelect").value = data.imageFit || "contain";
+      $("sortSelect").value = data.sort || "manual";
+      collageItems = data.items || [];
+      saveState();
+      render();
+    }catch(err){
+      alert("読み込みに失敗しました。");
+    }
+  });
+
+  $("closeImageModal").addEventListener("click", ()=>$("imageModal").classList.add("hidden"));
+  $("collageTitleInput").addEventListener("input", ()=>{saveState(); render();});
+  $("collageSubInput").addEventListener("input", ()=>{saveState(); render();});
+  $("dictionarySelect").addEventListener("change", e=>{currentDict=e.target.value; saveState(); render();});
+  $("includeOgCheck").addEventListener("change", e=>{includeOg=e.target.checked; saveState(); render();});
+  $("themeSelect").addEventListener("change", ()=>{saveState(); render();});
+  $("columnsSelect").addEventListener("change", ()=>{saveState(); render();});
+  if($("imageFitSelect")) $("imageFitSelect").addEventListener("change", ()=>{saveState();});
+  $("sortSelect").addEventListener("change", ()=>{saveState();});
+  $("applySortBtn").addEventListener("click", applyCollageSort);
+  $("makeTradeTextBtn").addEventListener("click", (e)=>{
+    e.preventDefault();
+    showTradeText();
+  });
+  $("tradeNameModeSelect").addEventListener("change", ()=>{
+    if(!$("tradeTextPanel").classList.contains("hidden")) showTradeText();
+  });
+  $("copyTradeTextBtn").addEventListener("click", (e)=>{
+    e.preventDefault();
+    copyTradeText();
+  });
+
+  render();
+});
+</script>
+</body>
+</html>
