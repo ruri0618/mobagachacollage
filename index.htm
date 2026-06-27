@@ -1221,7 +1221,7 @@ button.main{background:var(--main)}
     <div class="collageTopRow">
       <div>
         <label>コラージュタイトル</label>
-        <input id="collageTitleInput" value="モバガチャ コラージュ">
+        <input id="collageTitleInput" value="">
       </div>
       <div>
         <label>コラージュサブタイトル</label>
@@ -1416,7 +1416,7 @@ button.main{background:var(--main)}
     <div id="collageCaptureArea" class="collageCaptureArea">
       <div class="collageHeader">
         <img id="collageHeaderImage" class="collageHeaderImage hidden" alt="タイトル画像">
-        <h2 id="collageViewTitle">モバガチャ コラージュ</h2>
+        <h2 id="collageViewTitle"></h2>
         <p id="collageViewSub"></p>
       </div>
       <div id="collagePreviewGrid" class="collagePreviewGrid"></div>
@@ -1657,7 +1657,7 @@ function saveState(){
   }catch(err){}
 }
 function loadState(){
-  $("collageTitleInput").value = localStorage.getItem("collageOnlyTitle_v1") || "モバガチャ コラージュ";
+  $("collageTitleInput").value = localStorage.getItem("collageOnlyTitle_v1") || "";
   $("collageSubInput").value = localStorage.getItem("collageOnlySub_v1") || "";
   $("themeSelect").value = localStorage.getItem("collageOnlyTheme_v1") || "#d71920";
   $("columnsSelect").value = localStorage.getItem("collageOnlyColumns_v1") || "4";
@@ -2013,7 +2013,7 @@ function resetCollageToInitial(){
     names.forEach(name=>prizeRankMap[name] = rank);
   }
 
-  if($("collageTitleInput")) $("collageTitleInput").value = "モバガチャ コラージュ";
+  if($("collageTitleInput")) $("collageTitleInput").value = "";
   if($("collageSubInput")) $("collageSubInput").value = "";
   if($("dictionarySelect")) $("dictionarySelect").value = "";
   if($("includeOgCheck")) $("includeOgCheck").checked = false;
@@ -2158,7 +2158,7 @@ function moveItem(id, delta){
 }
 function render(){
   document.documentElement.style.setProperty("--main", $("themeSelect").value);
-  $("collageViewTitle").textContent = $("collageTitleInput").value || "モバガチャ コラージュ";
+  $("collageViewTitle").textContent = $("collageTitleInput").value || "";
   $("collageViewSub").textContent = $("collageSubInput").value || "";
   const headerImg = $("collageHeaderImage");
   const headerBox = headerImg ? headerImg.closest(".collageHeader") : null;
