@@ -545,6 +545,80 @@ button.main{background:var(--main)}
   line-height:1;
 }
 
+
+/* mobile control layout fix */
+@media(max-width:720px){
+  .wrap{
+    padding:10px;
+  }
+  .card{
+    border-radius:18px;
+    padding:12px;
+  }
+  .collageTopRow,
+  .themeRow{
+    grid-template-columns:1fr !important;
+  }
+  .collageControlRow{
+    display:grid !important;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    overflow:visible !important;
+    width:100%;
+    box-sizing:border-box;
+    align-items:stretch;
+  }
+  .collageControlRow > *{
+    min-width:0 !important;
+    width:100% !important;
+    max-width:100% !important;
+    box-sizing:border-box;
+  }
+  .collageControlRow select,
+  .collageControlRow button,
+  .collageControlRow .small{
+    font-size:14px;
+    min-height:44px;
+  }
+  .collageControlRow #fileAddHint{
+    grid-column:1 / -1;
+    min-height:auto;
+    padding:2px 0;
+    white-space:normal !important;
+  }
+  .collageControlRow #saveCollagePngBtn,
+  .collageControlRow #shareCollagePngBtn,
+  .collageControlRow #saveJsonBtn,
+  .collageControlRow #loadJsonBtn,
+  .collageControlRow #makeTradeTextBtn{
+    white-space:normal;
+  }
+  .collageControlRow #sortSelect,
+  .collageControlRow #applySortBtn{
+    grid-column:auto;
+  }
+  .collageControlRow #makeTradeTextBtn{
+    grid-column:1 / -1;
+  }
+  .tradeTextHeader{
+    flex-direction:column;
+  }
+  .tradeTextHeaderControls{
+    width:100%;
+  }
+  .tradeTextHeaderControls select,
+  .tradeTextHeaderControls button{
+    width:100% !important;
+  }
+}
+
+/* very narrow phones */
+@media(max-width:430px){
+  .collageControlRow{
+    grid-template-columns:1fr;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -556,7 +630,7 @@ button.main{background:var(--main)}
 
   <section class="panel">
     <h2>コラージュ作成</h2>
-    <p class="small">画像を複数枚まとめて追加できます。レアリティ・メンバー名・商品名を設定し、SP版チェックも付けられます。メンバー序列/レアリティ/商品名でソートでき、タイトル/サブタイトル欄は画像で代用できます。保存時の画像だけ「全体表示・比率維持」と「正方形トリミング・比率維持」を切り替えできます。</p>
+    <p class="small">画像を複数枚まとめて追加できます。メンバー辞書は最初は未選択で、グループを選ぶと候補が表示されます。レアリティ・メンバー名・商品名・SP版を設定し、メンバー序列/レアリティ/商品名でソートできます。</p>
 
     <div class="collageTopRow">
       <div>
@@ -586,6 +660,7 @@ button.main{background:var(--main)}
       <div>
         <label>メンバー辞書</label>
         <select id="dictionarySelect">
+          <option value="">メンバー辞書を選択</option>
           <option value="all">ハロプロ全体</option>
           <option value="all_mline">ハロプロ + M-line</option>
           <option value="mline">M-line club</option>
@@ -784,7 +859,7 @@ try {
 } catch(e) {
   collageItems = [];
 }
-let currentDict = localStorage.getItem("collageOnlyDict_v1") || "all";
+let currentDict = localStorage.getItem("collageOnlyDict_v2") || "";
 let includeOg = localStorage.getItem("collageOnlyIncludeOg_v1") === "true";
 let headerImageData = localStorage.getItem("collageOnlyHeaderImage_v1") || "";
 
@@ -794,6 +869,7 @@ function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&l
 function normalizeName(name){const n=(name||"").trim(); return aliases[n]||n;}
 function uniqueList(list){return [...new Set(list.filter(Boolean))];}
 function currentMembers(){
+  if(!currentDict) return [];
   if(includeOg && fullOrderDictionaries[currentDict]){
     return uniqueList(fullOrderDictionaries[currentDict]);
   }
@@ -825,7 +901,7 @@ function saveState(){
   try{
     localStorage.setItem("collageOnlyTitle_v1", $("collageTitleInput").value || "");
     localStorage.setItem("collageOnlySub_v1", $("collageSubInput").value || "");
-    localStorage.setItem("collageOnlyDict_v1", currentDict);
+    localStorage.setItem("collageOnlyDict_v2", currentDict);
     localStorage.setItem("collageOnlyIncludeOg_v1", includeOg ? "true" : "false");
     localStorage.setItem("collageOnlyTheme_v1", $("themeSelect").value);
     localStorage.setItem("collageOnlyColumns_v1", $("columnsSelect").value);
@@ -850,11 +926,19 @@ function loadState(){
   $("columnsSelect").value = localStorage.getItem("collageOnlyColumns_v1") || "4";
   if($("imageFitSelect")) $("imageFitSelect").value = localStorage.getItem("collageOnlyImageFit_v1") || "contain";
   $("sortSelect").value = localStorage.getItem("collageOnlySort_v1") || "manual";
-  $("dictionarySelect").value = currentDict;
+  if([...$("dictionarySelect").options].some(opt=>opt.value === currentDict)){
+    $("dictionarySelect").value = currentDict;
+  }else{
+    currentDict = "";
+    $("dictionarySelect").value = "";
+  }
   $("includeOgCheck").checked = includeOg;
 }
 function updateDictionaryUI(){
-  $("dictPills").innerHTML = currentMembers().map(m=>`<span class="pill">${esc(m)}</span>`).join("");
+  const members = currentMembers();
+  $("dictPills").innerHTML = members.length
+    ? members.map(m=>`<span class="pill">${esc(m)}</span>`).join("")
+    : `<span class="small">メンバー辞書を選択すると候補が表示されます。</span>`;
 }
 function memberOptions(selected){
   const members = currentMembers();
@@ -1444,6 +1528,80 @@ async function shareOrShowImage(){
   line-height:1;
 }
 
+
+/* mobile control layout fix */
+@media(max-width:720px){
+  .wrap{
+    padding:10px;
+  }
+  .card{
+    border-radius:18px;
+    padding:12px;
+  }
+  .collageTopRow,
+  .themeRow{
+    grid-template-columns:1fr !important;
+  }
+  .collageControlRow{
+    display:grid !important;
+    grid-template-columns:1fr 1fr;
+    gap:8px;
+    overflow:visible !important;
+    width:100%;
+    box-sizing:border-box;
+    align-items:stretch;
+  }
+  .collageControlRow > *{
+    min-width:0 !important;
+    width:100% !important;
+    max-width:100% !important;
+    box-sizing:border-box;
+  }
+  .collageControlRow select,
+  .collageControlRow button,
+  .collageControlRow .small{
+    font-size:14px;
+    min-height:44px;
+  }
+  .collageControlRow #fileAddHint{
+    grid-column:1 / -1;
+    min-height:auto;
+    padding:2px 0;
+    white-space:normal !important;
+  }
+  .collageControlRow #saveCollagePngBtn,
+  .collageControlRow #shareCollagePngBtn,
+  .collageControlRow #saveJsonBtn,
+  .collageControlRow #loadJsonBtn,
+  .collageControlRow #makeTradeTextBtn{
+    white-space:normal;
+  }
+  .collageControlRow #sortSelect,
+  .collageControlRow #applySortBtn{
+    grid-column:auto;
+  }
+  .collageControlRow #makeTradeTextBtn{
+    grid-column:1 / -1;
+  }
+  .tradeTextHeader{
+    flex-direction:column;
+  }
+  .tradeTextHeaderControls{
+    width:100%;
+  }
+  .tradeTextHeaderControls select,
+  .tradeTextHeaderControls button{
+    width:100% !important;
+  }
+}
+
+/* very narrow phones */
+@media(max-width:430px){
+  .collageControlRow{
+    grid-template-columns:1fr;
+  }
+}
+
 </style></head><body><p>画像を長押しして「写真に保存」または「画像を保存」を選んでください。</p><img src="${dataUrl}" alt="保存用画像"></body></html>`;
     if(preOpened && !preOpened.closed){
       preOpened.document.open();
@@ -1506,7 +1664,7 @@ document.addEventListener("DOMContentLoaded", ()=>{
       $("collageTitleInput").value = data.title || "モバガチャ コラージュ";
       $("collageSubInput").value = data.subtitle || "";
       headerImageData = data.headerImage || "";
-      currentDict = data.dictionary || "all";
+      currentDict = data.dictionary || "";
       includeOg = !!data.includeOg;
       $("dictionarySelect").value = currentDict;
       $("includeOgCheck").checked = includeOg;
