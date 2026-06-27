@@ -727,6 +727,30 @@ button.main{background:var(--main)}
   }
 }
 
+
+/* v24 mobile: keep enough space between member dictionary text and action buttons */
+@media(max-width:720px){
+  #dictPills{
+    display:block !important;
+    margin:6px 0 18px !important;
+    padding-bottom:2px !important;
+    line-height:1.8 !important;
+    overflow:visible !important;
+  }
+  #dictPills .small{
+    display:block !important;
+    margin-bottom:8px !important;
+    line-height:1.8 !important;
+  }
+  .collageControlRow{
+    margin-top:18px !important;
+    clear:both !important;
+  }
+  .themeRow + .collageControlRow{
+    margin-top:18px !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1815,6 +1839,30 @@ async function shareOrShowImage(){
   .collageControlRow button,
   .collageControlRow select{
     box-shadow:none !important;
+  }
+}
+
+
+/* v24 mobile: keep enough space between member dictionary text and action buttons */
+@media(max-width:720px){
+  #dictPills{
+    display:block !important;
+    margin:6px 0 18px !important;
+    padding-bottom:2px !important;
+    line-height:1.8 !important;
+    overflow:visible !important;
+  }
+  #dictPills .small{
+    display:block !important;
+    margin-bottom:8px !important;
+    line-height:1.8 !important;
+  }
+  .collageControlRow{
+    margin-top:18px !important;
+    clear:both !important;
+  }
+  .themeRow + .collageControlRow{
+    margin-top:18px !important;
   }
 }
 
