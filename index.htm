@@ -1188,6 +1188,23 @@ button.main{background:var(--main)}
   }
 }
 
+
+/* v39 bulk member selected apply */
+.bulkMemberRow{
+  grid-template-columns:minmax(0,1fr) auto auto;
+}
+@media(max-width:720px){
+  .bulkMemberRow{
+    grid-template-columns:1fr;
+  }
+  .bulkMemberRow select{
+    grid-column:auto;
+  }
+  .bulkMemberRow button{
+    width:100%;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1315,21 +1332,19 @@ button.main{background:var(--main)}
     <details class="bulkMemberTools" id="bulkMemberDetails">
       <summary>
         <span>メンバー名一括変更</span>
-        <small>特定メンバー用</small>
       </summary>
       <div class="bulkMemberInner">
         <div class="bulkMemberRow">
           <select id="bulkMemberSelect"></select>
           <button id="applyBulkMemberAllBtn" class="secondary" type="button">全て変更</button>
-          <button id="applyBulkMemberBlankBtn" class="secondary" type="button">未設定だけ</button>
+          <button id="applyBulkMemberSelectedBtn" class="secondary" type="button">チェックした画像に適用</button>
         </div>
-        <p class="small">特定メンバーだけのモバガチャ用です。SP版チェックや景品名はそのまま残します。</p>
       </div>
     </details>
 
     <details id="bulkEditPanel" class="bulkEditPanel bulkEditTools">
       <summary>
-        <span>選択した画像をまとめて変更</span>
+        <span>景品・レアリティをまとめて変更</span>
         <span class="small" id="bulkSelectedCount">0件選択中</span>
       </summary>
       <div class="bulkEditInner">
@@ -1702,7 +1717,7 @@ function resolveBulkMemberName(){
   }
   return normalizeName(sel.value || "");
 }
-function applyBulkMember(onlyBlank){
+function applyBulkMember(mode){
   const name = resolveBulkMemberName();
   if(!name){
     alert("メンバー名を選択してください。");
@@ -1713,18 +1728,16 @@ function applyBulkMember(onlyBlank){
     return;
   }
 
-  let changed = 0;
-  for(const item of collageItems){
-    if(!onlyBlank || !item.member){
-      item.member = name;
-      changed++;
-    }
-  }
-
-  if(!changed){
-    alert("変更対象がありませんでした。");
+  const targets = mode === "selected" ? collageItems.filter(item=>item.selected) : collageItems;
+  if(!targets.length){
+    alert("先に変更したい画像へチェックを入れてください。");
     return;
   }
+
+  targets.forEach(item=>{
+    item.member = name;
+    if(mode === "selected") item.selected = false;
+  });
 
   saveState();
   render();
@@ -3264,6 +3277,23 @@ async function shareOrShowImage(){
   }
 }
 
+
+/* v39 bulk member selected apply */
+.bulkMemberRow{
+  grid-template-columns:minmax(0,1fr) auto auto;
+}
+@media(max-width:720px){
+  .bulkMemberRow{
+    grid-template-columns:1fr;
+  }
+  .bulkMemberRow select{
+    grid-column:auto;
+  }
+  .bulkMemberRow button{
+    width:100%;
+  }
+}
+
 </style></head><body><p>画像を長押しして「写真に保存」または「画像を保存」を選んでください。</p><img src="${dataUrl}" alt="保存用画像"></body></html>`;
     if(preOpened && !preOpened.closed){
       preOpened.document.open();
@@ -3285,8 +3315,8 @@ document.addEventListener("DOMContentLoaded", ()=>{
     $("collageFilesInput").click();
   });
   $("collageFilesInput").addEventListener("change", addFiles);
-  $("applyBulkMemberAllBtn").addEventListener("click", ()=>applyBulkMember(false));
-  $("applyBulkMemberBlankBtn").addEventListener("click", ()=>applyBulkMember(true));
+  $("applyBulkMemberAllBtn").addEventListener("click", ()=>applyBulkMember("all"));
+  $("applyBulkMemberSelectedBtn").addEventListener("click", ()=>applyBulkMember("selected"));
   $("selectAllItemsBtn").addEventListener("click", ()=>setAllSelected(true));
   $("clearSelectedItemsBtn").addEventListener("click", ()=>setAllSelected(false));
   $("applyBulkRankBtn").addEventListener("click", applyBulkRank);
