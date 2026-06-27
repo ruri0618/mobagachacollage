@@ -619,6 +619,72 @@ button.main{background:var(--main)}
   }
 }
 
+
+/* v22 mobile compact controls */
+@media(max-width:720px){
+  .collageControlRow{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:7px !important;
+    padding:8px !important;
+    border-radius:16px !important;
+    background:#f8fafc !important;
+    overflow:visible !important;
+  }
+  .collageControlRow > *{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    box-sizing:border-box !important;
+  }
+  .collageControlRow button,
+  .collageControlRow select{
+    min-height:40px !important;
+    padding:8px 10px !important;
+    border-radius:14px !important;
+    font-size:13px !important;
+    line-height:1.25 !important;
+    white-space:normal !important;
+  }
+  .collageControlRow #addCollageFilesBtn{
+    grid-column:1 / -1;
+    min-height:44px !important;
+  }
+  .collageControlRow #fileAddHint{
+    grid-column:1 / -1;
+    min-height:0 !important;
+    padding:0 2px 2px !important;
+    font-size:12px !important;
+    line-height:1.4 !important;
+    white-space:normal !important;
+  }
+  .collageControlRow #sortSelect{
+    grid-column:1 / -1;
+  }
+  .collageControlRow #applySortBtn,
+  .collageControlRow #saveJsonBtn,
+  .collageControlRow #loadJsonBtn,
+  .collageControlRow #makeTradeTextBtn{
+    min-height:38px !important;
+  }
+  .collageControlRow #makeTradeTextBtn{
+    grid-column:1 / -1;
+  }
+}
+
+/* v21で入れた超細幅1列化を打ち消し */
+@media(max-width:430px){
+  .collageControlRow{
+    grid-template-columns:1fr 1fr !important;
+  }
+  .collageControlRow #addCollageFilesBtn,
+  .collageControlRow #fileAddHint,
+  .collageControlRow #sortSelect,
+  .collageControlRow #makeTradeTextBtn{
+    grid-column:1 / -1;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1599,6 +1665,72 @@ async function shareOrShowImage(){
 @media(max-width:430px){
   .collageControlRow{
     grid-template-columns:1fr;
+  }
+}
+
+
+/* v22 mobile compact controls */
+@media(max-width:720px){
+  .collageControlRow{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:7px !important;
+    padding:8px !important;
+    border-radius:16px !important;
+    background:#f8fafc !important;
+    overflow:visible !important;
+  }
+  .collageControlRow > *{
+    width:100% !important;
+    min-width:0 !important;
+    max-width:100% !important;
+    box-sizing:border-box !important;
+  }
+  .collageControlRow button,
+  .collageControlRow select{
+    min-height:40px !important;
+    padding:8px 10px !important;
+    border-radius:14px !important;
+    font-size:13px !important;
+    line-height:1.25 !important;
+    white-space:normal !important;
+  }
+  .collageControlRow #addCollageFilesBtn{
+    grid-column:1 / -1;
+    min-height:44px !important;
+  }
+  .collageControlRow #fileAddHint{
+    grid-column:1 / -1;
+    min-height:0 !important;
+    padding:0 2px 2px !important;
+    font-size:12px !important;
+    line-height:1.4 !important;
+    white-space:normal !important;
+  }
+  .collageControlRow #sortSelect{
+    grid-column:1 / -1;
+  }
+  .collageControlRow #applySortBtn,
+  .collageControlRow #saveJsonBtn,
+  .collageControlRow #loadJsonBtn,
+  .collageControlRow #makeTradeTextBtn{
+    min-height:38px !important;
+  }
+  .collageControlRow #makeTradeTextBtn{
+    grid-column:1 / -1;
+  }
+}
+
+/* v21で入れた超細幅1列化を打ち消し */
+@media(max-width:430px){
+  .collageControlRow{
+    grid-template-columns:1fr 1fr !important;
+  }
+  .collageControlRow #addCollageFilesBtn,
+  .collageControlRow #fileAddHint,
+  .collageControlRow #sortSelect,
+  .collageControlRow #makeTradeTextBtn{
+    grid-column:1 / -1;
   }
 }
 
