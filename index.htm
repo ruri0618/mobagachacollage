@@ -685,6 +685,48 @@ button.main{background:var(--main)}
   }
 }
 
+
+/* v23 mobile: controls should not overlap the next sections */
+@media(max-width:720px){
+  .collageControlRow{
+    position:relative !important;
+    z-index:auto !important;
+    margin:0 0 18px !important;
+    padding:8px !important;
+    box-shadow:none !important;
+    background:#f8fafc !important;
+    border:1px solid #d7dde6 !important;
+    border-radius:14px !important;
+    transform:none !important;
+  }
+  .themeRow{
+    margin-bottom:14px !important;
+  }
+  .tradeTextPanel,
+  #collageEditorGrid,
+  .collageCaptureArea{
+    position:relative !important;
+    z-index:auto !important;
+    clear:both !important;
+  }
+  .collageControlRow::before,
+  .collageControlRow::after{
+    display:none !important;
+    content:none !important;
+  }
+}
+
+/* iPhoneでボタン周りが巨大なカプセル状に見えるのを防ぐ */
+@media(max-width:430px){
+  .collageControlRow{
+    margin-bottom:18px !important;
+  }
+  .collageControlRow button,
+  .collageControlRow select{
+    box-shadow:none !important;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1731,6 +1773,48 @@ async function shareOrShowImage(){
   .collageControlRow #sortSelect,
   .collageControlRow #makeTradeTextBtn{
     grid-column:1 / -1;
+  }
+}
+
+
+/* v23 mobile: controls should not overlap the next sections */
+@media(max-width:720px){
+  .collageControlRow{
+    position:relative !important;
+    z-index:auto !important;
+    margin:0 0 18px !important;
+    padding:8px !important;
+    box-shadow:none !important;
+    background:#f8fafc !important;
+    border:1px solid #d7dde6 !important;
+    border-radius:14px !important;
+    transform:none !important;
+  }
+  .themeRow{
+    margin-bottom:14px !important;
+  }
+  .tradeTextPanel,
+  #collageEditorGrid,
+  .collageCaptureArea{
+    position:relative !important;
+    z-index:auto !important;
+    clear:both !important;
+  }
+  .collageControlRow::before,
+  .collageControlRow::after{
+    display:none !important;
+    content:none !important;
+  }
+}
+
+/* iPhoneでボタン周りが巨大なカプセル状に見えるのを防ぐ */
+@media(max-width:430px){
+  .collageControlRow{
+    margin-bottom:18px !important;
+  }
+  .collageControlRow button,
+  .collageControlRow select{
+    box-shadow:none !important;
   }
 }
 
